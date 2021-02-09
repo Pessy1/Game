@@ -5,24 +5,26 @@ const Game = new Phaser.Game(window.innerWidth,window.innerHeight, Phaser.AUTO, 
     update:update })
 
 let pl
-let music
+let music,footstep,jumpsound,counter = 0
 let speed = 20
 let plat
 
 function preload() {
     Game.load.spritesheet ('player','Untitled-3.png',800/8,480/6)
     Game.load.audio('music', "Naruto Theme - The Raising Fighting Spirit (320  kbps).mp3")
+    Game.load.audio("jumpsound", "Jump.wav")
+    Game.load.audio("footstep", "Footstep1.wav")
     Game.load.image ('platform','download (1).png')
 }
 
 function create() {
     musicandsound ()
-    playerf ()
-    plAnim ()
-    Game.stage.backgroundColor = "#4488AA"
     plat=Game.add.sprite (window.innerWidth,window.innerHeight,'platform')
     plat.anchor.setTo(1,1)
     plat.width = window.innerWidth
+    playerf ()
+    plAnim ()
+    Game.stage.backgroundColor = "#4488AA"
 
 }
 
@@ -31,9 +33,12 @@ function update() {
 }
 
 const musicandsound = function () {
-    music = Game.add.audio('music');
+    music = Game.add.audio('music',0.1);
 
     music.play();
+
+    footstep = Game.add.audio('footstep',1)
+    jumpsound = Game.add.audio('jumpsound',1)
     
 }
 
@@ -42,6 +47,7 @@ const playerf = function () {
     pl=Game.add.sprite (100,100,'player')
     pl.scale.setTo(3)
     Game.physics.enable (pl)
+    pl.body.collideWorldBounds = true
     pl.body.gravity.y = 100
 }
 
