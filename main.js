@@ -1,11 +1,16 @@
 'use strict'
-const Game = new Phaser.Game(800, 800, Phaser.AUTO, 'game-canvas', { preload, create, update })
+const Game = new Phaser.Game(window.innerWidth,window.innerHeight, Phaser.AUTO, 'game-canvas', { 
+    preload:preload, 
+    create:create, 
+    update:update 
+})
 
 let pl
 let music
 let button
 let A,D
 let speed = 20
+
 
 function preload() {
     Game.load.spritesheet ('Idle_Animation','Untitled-2.png',11748/6.09,4026/1)
@@ -15,6 +20,8 @@ function preload() {
 function create() {
     musicandsound ()
     playerf ()
+    console.log(window)
+    Game.stage.backgroundColor = "#4488AA"
 }
 
 function update() {
@@ -44,4 +51,5 @@ const playermovment = function (){
     if (Game.input.keyboard.addKey(Phaser.Keyboard.A).isDown){
         pl.body.velocity.x=-speed
     }
+    
 }
