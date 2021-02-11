@@ -6,11 +6,13 @@ const Game = new Phaser.Game(window.innerWidth,window.innerHeight, Phaser.AUTO, 
 
 let pl
 let music,footstep,jumpsound,counter = 0
-let speed = 20
+let speed = 150
 let plat
+let jumpTimer = 0
+let direction = 'right'
 
 function preload() {
-    Game.load.spritesheet ('player','Untitled-3.png',800/8,480/6)
+    Game.load.spritesheet ('player','Untitled-3 (1).png',800/8,480/6)
     Game.load.audio('music', "Naruto Theme - The Raising Fighting Spirit (320  kbps).mp3")
     Game.load.audio("jumpsound", "Jump.wav")
     Game.load.audio("footstep", "Footstep1.wav")
@@ -48,14 +50,16 @@ const playerf = function () {
     pl.scale.setTo(3)
     Game.physics.enable (pl)
     pl.body.collideWorldBounds = true
-    pl.body.gravity.y = 100
+    pl.body.gravity.y = 400
 }
 
 const plAnim = function() {
     pl.animations.add('Idle',[0,1,2,3,4,5],8,true)
+    pl.animations.add('Idle_left', [31,30,29,28,27,26],8,true)
     pl.animations.add('Running',[8,9,10,11,12,13,14],10)
-    pl.animations.add('Running_left',[31,32,32,33,34,35,36,0],10)
-    pl.animations.add('Jump',[20,21,22,23],10)
+    pl.animations.add('Running_left',[39,38,37,36,35,34,32],10)
+    pl.animations.add('Jump',[19,20,21],10)
+    pl.animations.add('Jump_left',[44,43,42],10)
 }
 
 const playermovment = function (){
@@ -64,29 +68,31 @@ const playermovment = function (){
     if (Game.input.keyboard.addKey(Phaser.Keyboard.A).isDown){
         pl.body.velocity.x=-speed
         pl.animations.play('Running_left')
+        direction = 'left'
     }else if (Game.input.keyboard.addKey(Phaser.Keyboard.D).isDown){
         pl.body.velocity.x = +speed
         pl.animations.play('Running')
-    }else if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown){
-        pl.body.velocity.y = -speed
-        pl.animations.play('Jump')
-    }else (pl.animations.play('Idle'))
-    
-    if (pl.onTheGround) {
-        pl.jumps = 2;
-        pl.jumping = false;
+        direction = 'right'
+    }else if(direction === 'right'){
+        (pl.animations.play('Idle'))
+    }else if (direction === 'left'){
+        pl.animations.play('Idle_left')
+    }
+    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && pl.body.onFloor() && Game.time.now > jumpTimer)
+    {
+        pl.body.velocity.y = -450;
+        jumpTimer = Game.time.now + 750;
+    }
+    if (pl.body.onFloor() === false){
+        if(direction === 'right'){
+            (pl.animations.play('Jump'))
+        }else if (direction === 'left'){
+            pl.animations.play('Jump_left')
+        }
     }
 
     // Jump!
-    if (pl.jumps > 0 && pl.upInputIsActive(5)) {
-        pl.body.velocity.y = pl.JUMP_SPEED;
-        pl.jumping = true;
-    }
-
-    if (pl.jumping && Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isUp) {
-        pl.jumps--;
-        pl.jumping = false;
-    }
+    
 
     Game.physics.arcade.collide (pl,plat)
-}
+    }
