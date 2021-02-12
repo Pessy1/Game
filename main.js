@@ -6,10 +6,14 @@ const Game = new Phaser.Game(window.innerWidth,window.innerHeight, Phaser.AUTO, 
 
 let pl
 let music,footstep,jumpsound,counter = 0
-let speed = 150
+let speed = 250
 let plat
 let jumpTimer = 0
 let direction = 'right'
+let healthbar
+let healthbar_enemy
+let enemy
+let heal
 
 function preload() {
     Game.load.spritesheet ('player','Untitled-3 (1).png',800/8,480/6)
@@ -17,6 +21,9 @@ function preload() {
     Game.load.audio("jumpsound", "Jump.wav")
     Game.load.audio("footstep", "Footstep1.wav")
     Game.load.image ('platform','download (1).png')
+    Game.load.image('blue', 'blue.png')
+    Game.load.image('ball', 'heal.png')
+    Game.load.image('healthbar', 'platform.jpg')
 }
 
 function create() {
@@ -26,12 +33,50 @@ function create() {
     plat.width = window.innerWidth
     playerf ()
     plAnim ()
+    enemy_create()
+    enemy_phys()
+
+    heal = Game.add.sprite(enemy.x, enemy.y, 'ball')
+    heal.scale.setTo(0.05)
+    heal.kill()
+    Game.physics.arcade.enable(heal)
+
+    healthbar = Game.add.sprite(0,0,'healthbar')
+    healthbar.width = pl.health
+    healthbar.scale.setTo(0.05)
+    healthbar.anchor.setTo(0.5, 1)
+
+    healthbar_enemy = Game.add.sprite(0,0,'healthbar')
+    healthbar_enemy.width = enemy.health
+    healthbar_enemy.scale.setTo(0.05)
+    healthbar_enemy.anchor.setTo(0.5, 1)
+
     Game.stage.backgroundColor = "#4488AA"
 
 }
 
 function update() {
     playermovment()
+
+    if (pl.visible && enemy.visible){
+        damage()
+        death()
+    }
+
+    if (pl.visible && heal.visible){
+        Game.physics.arcade.moveToObject(heal, player, 500)
+        healing()
+    }
+
+    healthbar.width = pl.health
+
+    healthbar.x = pl.x+pl.width/2
+    healthbar.y = pl.y+10
+
+    healthbar_enemy.width = enemy.health
+
+    healthbar_enemy.x = enemy.x+enemy.width/2
+    healthbar_enemy.y = enemy.y-5
 }
 
 const musicandsound = function () {
@@ -48,6 +93,7 @@ const playerf = function () {
     
     pl=Game.add.sprite (100,100,'player')
     pl.scale.setTo(3)
+    pl.health = 80
     Game.physics.enable (pl)
     pl.body.collideWorldBounds = true
     pl.body.gravity.y = 400
@@ -96,3 +142,32 @@ const playermovment = function (){
 
     Game.physics.arcade.collide (pl,plat)
     }
+
+const death = function() {
+    if (pl.health < 0){
+        healthbar.destroy()
+        pl.kill()
+    }
+    if (enemy.health < 0){
+        healthbar_enemy.destroy()
+        enemy.kill()
+        heal.revive()
+        heal.x = enemy.x
+        heal.y = enemy.y
+    }
+}
+    
+const damage = function() {
+    if (pl.overlap(enemy)){
+        pl.health -= 1
+    }
+}
+    
+const healing = function() {
+    if (pl.overlap(heal)){
+        pl.health += 10
+        heal.kill()
+    }    
+}
+        
+    
