@@ -19,7 +19,7 @@ let heal
 function preload() {
     Game.load.spritesheet ('player','Player_left_right.png',701/14.05,587/16.38)
     Game.load.spritesheet ('player_left','asddsaasd2.png')
-    Game.load.audio('music', "Naruto Theme - The Raising Fighting Spirit (320  kbps).mp3")
+    // Game.load.audio('music', "Naruto Theme - The Raising Fighting Spirit (320  kbps).mp3")
     Game.load.audio("jumpsound", "Jump.wav")
     Game.load.audio("footstep", "Footstep1.wav")
     Game.load.image ('platform','download (1).png')
@@ -84,9 +84,9 @@ function update() {
 }
 
 const musicandsound = function () {
-    music = Game.add.audio('music',0.05);
+    // music = Game.add.audio('music',0.05);
 
-    music.play();
+    // music.play();
 
     footstep = Game.add.audio('footstep',1)
     jumpsound = Game.add.audio('jumpsound',1)
