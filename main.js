@@ -84,7 +84,7 @@ function update() {
 }
 
 const musicandsound = function () {
-    music = Game.add.audio('music',0.1);
+    music = Game.add.audio('music',0.05);
 
     music.play();
 
@@ -120,12 +120,14 @@ const playermovment = function (){
         pl.body.velocity.x=-speed
         if (pl.body.onFloor()===true){
         pl.animations.play('Running_left')
+        footstep.play()
         }
         direction = 'left'
     }else if (Game.input.keyboard.addKey(Phaser.Keyboard.D).isDown){
         pl.body.velocity.x = +speed
         if (pl.body.onFloor()===true){
         pl.animations.play('Running')
+        footstep.play()
     }
         direction = 'right'
     }else if(direction === 'right'&&pl.body.onFloor()===true){
@@ -137,6 +139,7 @@ const playermovment = function (){
     {
         pl.body.velocity.y = -450
         jumpTimer = Game.time.now + 750
+        jumpsound.play()
         
         if(direction === 'right'){
             pl.animations.play('Jump',10,false)
