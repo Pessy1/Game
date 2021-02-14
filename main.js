@@ -13,6 +13,8 @@ let direction = 'right'
 let healthbar
 let healthbar_enemy
 let enemy
+let shot_counter = 0
+let arrow
 let heal
 
 
@@ -23,7 +25,7 @@ function preload() {
     Game.load.audio("jumpsound", "Jump.wav")
     Game.load.audio("footstep", "Footstep1.wav")
     Game.load.image ('platform','download (1).png')
-    Game.load.spritesheet ('Archerer', 'Archerer.png',966/20,112/3)
+    Game.load.spritesheet ('Archerer', 'Archerer.png',680/4,680/4)
     Game.load.image('ball', 'heal.png')
     Game.load.image('healthbar', 'platform.jpg')
     Game.load.spritesheet ('arrow','Move.png',48/2,5)
@@ -31,8 +33,8 @@ function preload() {
 
 function create() {
     musicandsound ()
-    plat=Game.add.sprite (window.innerWidth,window.innerHeight,'platform')
-    plat.anchor.setTo(1,1)
+    //plat=Game.add.sprite (window.innerWidth,window.innerHeight,'platform')
+    //plat.anchor.setTo(1,1)
     playerf ()
     plAnim ()
     enemy_create()
@@ -56,11 +58,13 @@ function create() {
     Game.stage.backgroundColor = "#4488AA"
     console.log (pl.animations)
     
-
+    enemy.frame = 13
 }
 
 function update() {
     playermovment()
+
+    shot_counter += 1
 
     if (pl.visible && enemy.visible){
         damage()
@@ -74,13 +78,38 @@ function update() {
 
     healthbar.width = pl.health
 
-    healthbar.x = pl.x+pl.width/2
+    healthbar.x = pl.x
     healthbar.y = pl.y
 
     healthbar_enemy.width = enemy.health
 
-    healthbar_enemy.x = enemy.x+enemy.width/2
+    healthbar_enemy.x = enemy.x+6
     healthbar_enemy.y = enemy.y-5
+
+    if (shot_counter === 70){
+        enemy.animations.add('shoot',[13,14,15,10,9,8],10,false).play()
+        arrow_create()
+        if (arrow.countDead() > 0)
+    {   arrow = arrow.getFirstDead()
+
+        arrow.reset(enemy.x, enemy.y+23)
+    }
+        shot_counter = 0
+    }
+
+    if (arrow){
+        arrow.body.velocity.x=-speed
+        Game.physics.arcade.enable(arrow)
+        if (Phaser.Rectangle.intersects(pl.body, arrow.body)){
+            pl.health -= 1
+            arrow.kill()
+            console.log(1)
+        }
+    }
+
+    if (Game.input.keyboard.addKey(Phaser.Keyboard.F).repeats){
+        debug()
+    }
 }
 
 const musicandsound = function () {
@@ -96,12 +125,15 @@ const musicandsound = function () {
 const playerf = function () {
     
     pl=Game.add.sprite (100,window.innerHeight,'player')
+    pl.anchor.setTo(0.5, 0)
     pl.scale.setTo(3)
     pl.health = 80
     Game.physics.enable (pl)
     pl.body.collideWorldBounds = true
     pl.body.gravity.y = 400
-    pl.body.setSize (38,31)
+    pl.body.setSize (25,31, 15)
+    console.log(pl.body.width)
+    console.log(pl.body.height)
 }
 const plAnim = function() {
     pl.animations.add('Idle',[7,8,9,10],4.8,true)
@@ -170,7 +202,7 @@ const death = function() {
 }
     
 const damage = function() {
-    if (pl.overlap(enemy)){
+    if (Phaser.Rectangle.intersects(pl.body, enemy.body)){
         pl.health -= 1
     }
 }
