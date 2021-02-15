@@ -89,21 +89,19 @@ function update() {
     if (shot_counter === 70){
         enemy.animations.add('shoot',[13,14,15,10,9,8],10,false).play()
         arrow_create()
-        if (arrow.countDead() > 0)
-    {   arrow = arrow.getFirstDead()
-
-        arrow.reset(enemy.x, enemy.y+23)
-    }
         shot_counter = 0
     }
-
+    
     if (arrow){
-        arrow.body.velocity.x=-speed
+        arrow.animations.add('spin',[0,1],10,true).play()
+        arrow.x -= 20
         Game.physics.arcade.enable(arrow)
-        if (Phaser.Rectangle.intersects(pl.body, arrow.body)){
-            pl.health -= 1
-            arrow.kill()
-            console.log(1)
+        if (pl.visible && arrow.visible){
+            if (Phaser.Rectangle.intersects(pl.body, arrow.body)){
+                pl.health -= 10
+                arrow.kill()
+                console.log(1)
+            }
         }
     }
 

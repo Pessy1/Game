@@ -1,9 +1,5 @@
 const arrow_create = function() {
-    arrow = Game.add.group()
-    arrow.enableBody = true
-    arrow.physicsBodyType = Phaser.Physics.ARCADE
-
-    arrow.createMultiple(50, 'arrow')
-    arrow.setAll('checkWorldBounds', true)
-    arrow.setAll('outOfBoundsKill', true)
+    arrow = Game.add.sprite(enemy.x, enemy.y+32, 'arrow')
+    arrow.scale.setTo(-1)
+    Game.physics.arcade.enable(arrow)
 } 
