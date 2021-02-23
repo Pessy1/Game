@@ -28,20 +28,21 @@ const playermovment = function (){
         pl.body.velocity.x=-speed
         if (pl.body.onFloor()===true){
         pl.animations.play('Running_left')
-        footstep.play()
         }
         direction = 'left'
     }else if (Game.input.keyboard.addKey(Phaser.Keyboard.D).isDown){
         pl.body.velocity.x = +speed
         if (pl.body.onFloor()===true){
         pl.animations.play('Running')
-        footstep.play()
     }
         direction = 'right'
     }else if(direction === 'right'&&pl.body.onFloor()===true){
         (pl.animations.play('Idle'))
     }else if (direction === 'left'&&pl.body.onFloor()===true){
         pl.animations.play('Idle_left')
+    }
+    if ((!((Game.input.keyboard.addKey(Phaser.Keyboard.A).repeats % 30)) || !((Game.input.keyboard.addKey(Phaser.Keyboard.D).repeats % 30))) & Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isUp ) {
+        footstep.play()
     }
     if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && pl.body.onFloor() && Game.time.now > jumpTimer)
     {
