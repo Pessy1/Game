@@ -1,7 +1,9 @@
 const arrow_create = function() {
-    arrow = Game.add.sprite(enemy.x, enemy.y+32, 'arrow')
+    arrow = arrows.create(enemy.x, enemy.y+32, 'arrow')
     arrow.scale.setTo(-1)
+    arrow.animations.add('spin',[0,1],10,true).play()
     Game.physics.arcade.enable(arrow)
+    arrow.body.velocity.x = -500
 } 
 
 const shooting = function() {
@@ -11,17 +13,18 @@ const shooting = function() {
         shot_counter = 0
     }
     
-    if (arrow){
-        arrow.animations.add('spin',[0,1],10,true).play()
-        arrow.body.x -= 20
-        Game.physics.arcade.enable(arrow)
-        if (pl.visible && arrow.visible){
-            if (Phaser.Rectangle.intersects(pl.body, arrow.body)){
-                pl.health -= 10
-                arrow.kill()
-                console.log(1)
+    if (arrows && arrows.length > 0){
+        arrows.forEach(element => {
+            if (pl.visible && element.visible){
+                if (Phaser.Rectangle.intersects(pl.body, element.body)){
+                    pl.health -= 10
+                    element.kill()
+                    console.log(1)
+                }
             }
-        }
+        })
+        
     }
 }
+
 

@@ -64,6 +64,8 @@ function create() {
 
     Game.stage.backgroundColor = "#4488AA"
     console.log (pl.animations)
+
+    arrows = Game.add.group()
     
     enemy.frame = 13
 }
