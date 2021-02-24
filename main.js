@@ -14,6 +14,7 @@ let healthbar
 let healthbar_enemy
 let enemy
 let shot_counter = 0
+let arrows
 let arrow
 let heal
 
