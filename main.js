@@ -5,7 +5,7 @@ const Game = new Phaser.Game(window.innerWidth,window.innerHeight, Phaser.AUTO, 
     update:update })
 
 let pl
-let music,footstep,jumpsound,counter = 0
+let music,footstep,jumpsound,counter = 0, platforma1
 let speed = 250
 let plat
 let jumpTimer = 0
@@ -22,9 +22,14 @@ let heal
 function preload() {
     Game.load.spritesheet ('player','Player_left_right.png',701/14.05,587/16.38)
     Game.load.spritesheet ('player_left','asddsaasd2.png')
-    // Game.load.audio('music', "Naruto Theme - The Raising Fighting Spirit (320  kbps).mp3")
+    Game.load.audio('music', "Naruto Theme - The Raising Fighting Spirit (320  kbps).mp3")
     Game.load.audio("jumpsound", "Jump.wav")
     Game.load.audio("footstep", "Footstep1.wav")
+    Game.load.image("plat1", "platform 1.png")
+    Game.load.image("plat2", "platform 2.png")
+    Game.load.image("plat3", "platform_3.png")
+    Game.load.image("plat4", "platform 4.png")
+    Game.load.image("plat5", "platform 5.png")
     Game.load.image ('platform','download (1).png')
     Game.load.spritesheet ('Archerer', 'Archerer.png',680/4,680/4)
     Game.load.image('ball', 'heal.png')
@@ -40,6 +45,7 @@ function create() {
     plAnim ()
     enemy_create()
     enemy_phys()
+    // platformi()
 
     heal = Game.add.sprite(enemy.x, enemy.y, 'ball')
     heal.scale.setTo(0.05)
@@ -95,9 +101,8 @@ function update() {
 }
 
 const musicandsound = function () {
-    // music = Game.add.audio('music',0.05);
-
-    // music.play();
+    music = Game.add.audio('music',0.05);
+    music.play();
 
     footstep = Game.add.audio('footstep',1)
     jumpsound = Game.add.audio('jumpsound',1)
@@ -130,3 +135,7 @@ const healing = function() {
     }    
 }
         
+// const platformi = function() {
+//     platforma1 = Game.add.sprite(800,1000,"plat4")
+//     platforma1.scale.setTo(5)
+// }
