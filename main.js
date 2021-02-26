@@ -5,7 +5,7 @@ const Game = new Phaser.Game(window.innerWidth,window.innerHeight, Phaser.AUTO, 
     update:update })
 
 let pl
-let music,footstep,jumpsound,counter = 0, platforma1
+let music,footstep,jumpsound,counter = 0, platforms, platform1, platform2, platform3, platform4, platform5
 let speed = 250
 let plat
 let jumpTimer = 0
@@ -66,7 +66,7 @@ function create() {
     console.log (pl.animations)
 
     arrows = Game.add.group()
-    
+    platforms = Game.add.group()
     enemy.frame = 13
 }
 
