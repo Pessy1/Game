@@ -1,3 +1,3 @@
-const platforms_create = function() {
-    platform1 = platforms.create(100, 100, "plat1")
+const platforms_create = function(x, y) {
+    platform1 = platforms.create(x, y, "plat1")
 }
