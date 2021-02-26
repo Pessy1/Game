@@ -9,7 +9,7 @@ const enemy_phys = function() {
     Game.physics.arcade.enable(enemy)
     enemy.body.gravity.y = 500
     enemy.body.collideWorldBounds = true
-    enemy.body.setSize (90, 162, 60)
+    enemy.body.setSize(90, 162, 60)
     console.log(enemy.body)
     console.log(enemy.body.width)
     console.log(enemy.body.height)

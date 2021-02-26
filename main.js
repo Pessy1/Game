@@ -12,7 +12,9 @@ let jumpTimer = 0
 let direction = 'right'
 let healthbar
 let healthbar_enemy
+let healthbar_enemy_2
 let enemy
+let enemy_2
 let shot_counter = 0
 let arrows
 let arrow
@@ -32,6 +34,7 @@ function preload() {
     Game.load.image("plat5", "platform 5.png")
     Game.load.image ('platform','download (1).png')
     Game.load.spritesheet ('Archerer', 'Archerer.png',680/4,680/4)
+    Game.load.spritesheet ('Hound', 'hell-hound-run.png',335/5,32)
     Game.load.image('ball', 'heal.png')
     Game.load.image('healthbar', 'platform.jpg')
     Game.load.spritesheet ('arrow','Move.png',48/2,5)
@@ -45,6 +48,8 @@ function create() {
     plAnim ()
     enemy_create()
     enemy_phys()
+    enemy_2_create()
+    enemy_2_phys()
     // platformi()
 
     heal = Game.add.sprite(enemy.x, enemy.y, 'ball')
@@ -62,16 +67,26 @@ function create() {
     healthbar_enemy.scale.setTo(0.05)
     healthbar_enemy.anchor.setTo(0.5, 1)
 
+    healthbar_enemy_2 = Game.add.sprite(0,0,'healthbar')
+    healthbar_enemy_2.width = enemy.health
+    healthbar_enemy_2.scale.setTo(0.05)
+    healthbar_enemy_2.anchor.setTo(0.5, 1)
+
     Game.stage.backgroundColor = "#4488AA"
     console.log (pl.animations)
 
     arrows = Game.add.group()
     platforms = Game.add.group()
     enemy.frame = 13
+
+    platforms_create(100,500)
 }
 
 function update() {
     playermovment()
+    collide()
+
+    enemy_2_movement()
 
     shot_counter += 1
 
@@ -81,7 +96,7 @@ function update() {
     }
 
     if (pl.visible && heal.visible){
-        Game.physics.arcade.moveToObject(heal, player, 500)
+        Game.physics.arcade.moveToObject(heal, pl, 500)
         healing()
     }
 
@@ -94,6 +109,11 @@ function update() {
 
     healthbar_enemy.x = enemy.x+6
     healthbar_enemy.y = enemy.y-5
+
+    healthbar_enemy_2.width = enemy_2.health
+
+    healthbar_enemy_2.x = enemy_2.x+enemy_2.width/2+6
+    healthbar_enemy_2.y = enemy_2.y-5
 
     shooting()
 
@@ -135,6 +155,11 @@ const healing = function() {
         pl.health += 10
         heal.kill()
     }    
+}
+
+const collide = function() {
+    Game.physics.arcade.collide(pl, platform1)
+    Game.physics.arcade.collide(enemy_2, platform1)
 }
         
 // const platformi = function() {

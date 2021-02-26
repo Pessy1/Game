@@ -44,9 +44,9 @@ const playermovment = function (){
     if ((!((Game.input.keyboard.addKey(Phaser.Keyboard.A).repeats % 30)) || !((Game.input.keyboard.addKey(Phaser.Keyboard.D).repeats % 30))) & Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isUp ) {
         footstep.play()
     }
-    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && pl.body.onFloor() && Game.time.now > jumpTimer)
+    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && (pl.body.blocked.down) && Game.time.now > jumpTimer)
     {
-        pl.body.velocity.y = -450
+        pl.body.velocity.y = -600
         jumpTimer = Game.time.now + 750
         jumpsound.play()
         if(direction === 'right'){
@@ -54,7 +54,7 @@ const playermovment = function (){
         }else if (direction === 'left'){
            pl.animations.play('Jump_left')} 
     }
-    if (pl.body.onFloor() === false&&pl.body.velocity.y<-450){
+    if (pl.body.onFloor() === false&&pl.body.velocity.y<-600){
          if(direction === 'right'){
             pl.animations.play('Top',10,false)
         }else if (direction === 'left'){
