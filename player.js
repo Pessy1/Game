@@ -49,7 +49,6 @@ const playermovment = function (){
         pl.body.velocity.y = -450
         jumpTimer = Game.time.now + 750
         jumpsound.play()
-        
         if(direction === 'right'){
             pl.animations.play('Jump',10,false)
         }else if (direction === 'left'){
