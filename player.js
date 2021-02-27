@@ -44,7 +44,12 @@ const playermovment = function (){
     if ((!((Game.input.keyboard.addKey(Phaser.Keyboard.A).repeats % 30)) || !((Game.input.keyboard.addKey(Phaser.Keyboard.D).repeats % 30))) & Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isUp ) {
         footstep.play()
     }
-    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && (pl.body.blocked.down) && Game.time.now > jumpTimer)
+    const flag1 = Game.physics.arcade.collide(pl, platform1)
+    const flag2 = Game.physics.arcade.collide(pl, platform2)
+    const flag3 = Game.physics.arcade.collide(pl, platform3)
+    const flag4 = Game.physics.arcade.collide(pl, platform4)
+    const flag5 = Game.physics.arcade.collide(pl, platform5)
+    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && (flag1 || flag2 || flag3 || flag4 || flag5) && Game.time.now > jumpTimer)
     {
         pl.body.velocity.y = -600
         jumpTimer = Game.time.now + 750
