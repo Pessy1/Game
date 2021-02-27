@@ -5,7 +5,7 @@ const Game = new Phaser.Game(window.innerWidth,window.innerHeight, Phaser.AUTO, 
     update:update })
 
 let pl
-let music,footstep,jumpsound,counter = 0, platforms, platform1, platform2, platform3, platform4, platform5
+let music,footstep,jumpsound,counter = 0,plat1,plat2,plat3,plat4,plat5, platform1, platform2, platform3, platform4, platform5, burzina = 5
 let speed = 250
 let plat
 let jumpTimer = 0
@@ -42,15 +42,13 @@ function preload() {
 
 function create() {
     musicandsound ()
-    //plat=Game.add.sprite (window.innerWidth,window.innerHeight,'platform')
-    //plat.anchor.setTo(1,1)
     playerf ()
     plAnim ()
     enemy_create()
     enemy_phys()
     enemy_2_create()
     enemy_2_phys()
-    // platformi()
+
 
     heal = Game.add.sprite(enemy.x, enemy.y, 'ball')
     heal.scale.setTo(0.05)
@@ -76,10 +74,17 @@ function create() {
     console.log (pl.animations)
 
     arrows = Game.add.group()
-    platforms = Game.add.group()
+    platform1 = Game.add.group()
+    platform2 = Game.add.group()
+    platform3 = Game.add.group()
+    platform4 = Game.add.group()
+    platform5 = Game.add.group()
+    plat_placement()
     enemy.frame = 13
 
-    platforms_create(100,500)
+    Game.world.setBounds(0,0,10000,7000)
+    Game.camera.follow(pl)
+
 }
 
 function update() {
@@ -120,6 +125,14 @@ function update() {
     if (Game.input.keyboard.addKey(Phaser.Keyboard.F).repeats){
         debug()
     }
+    platform5.x += burzina
+
+    if(platform5.x > 1500){
+       burzina *= -1}
+
+    if (platform5.x < 0){
+   burzina = 5}
+  
 }
 
 const musicandsound = function () {
@@ -159,10 +172,36 @@ const healing = function() {
 
 const collide = function() {
     Game.physics.arcade.collide(pl, platform1)
+    Game.physics.arcade.collide(pl, platform2)
+    Game.physics.arcade.collide(pl, platform3)
+    Game.physics.arcade.collide(pl, platform4)
+    Game.physics.arcade.collide(pl, platform5)
+    Game.physics.arcade.collide(enemy, platform1)
+    Game.physics.arcade.collide(enemy, platform2)
+    Game.physics.arcade.collide(enemy, platform3)
+    Game.physics.arcade.collide(enemy, platform4)
+    Game.physics.arcade.collide(enemy, platform5)
     Game.physics.arcade.collide(enemy_2, platform1)
+    Game.physics.arcade.collide(enemy_2, platform2)
+    Game.physics.arcade.collide(enemy_2, platform3)
+    Game.physics.arcade.collide(enemy_2, platform4)
+    Game.physics.arcade.collide(enemy_2, platform5)
 }
-        
-// const platformi = function() {
-//     platforma1 = Game.add.sprite(800,1000,"plat4")
-//     platforma1.scale.setTo(5)
-// }
+const plat_placement = function(){
+    // 1
+    platform4_create(0, 5300)
+    platform4_create(700, 5000)
+    platform4_create(300, 4700)
+    platform4_create(0, 4400)
+    platform3_create(550, 4000)
+    platform5_create(1000, 3700)
+    // 2
+    platform3_create(2300, 3350)
+    platform3_create(1800, 3150)
+    platform1_create(1000, 3000)
+    platform2_create(650, 2800)
+    // 3
+    platform4_create(3400, 3700)
+    platform4_create(3900, 3500)
+    platform4_create(4400, 3300)
+}
