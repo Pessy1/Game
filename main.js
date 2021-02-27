@@ -21,6 +21,7 @@ let arrow
 let heal
 
 
+
 function preload() {
     Game.load.spritesheet ('player','Player_left_right.png',701/14.05,587/16.38)
     Game.load.spritesheet ('player_left','asddsaasd2.png')
@@ -91,6 +92,8 @@ function update() {
     playermovment()
     collide()
 
+    console.log(pl.x)
+
     enemy_2_movement()
 
     shot_counter += 1
@@ -132,6 +135,10 @@ function update() {
 
     if (platform5.x < 0){
    burzina = 5}
+    
+   if (pl.overlap(platform5)){
+       pl.x += burzina
+   }
   
 }
 

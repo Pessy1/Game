@@ -24,34 +24,36 @@ const plAnim = function() {
 const playermovment = function (){
     pl.body.velocity.x=0
 
+    let flag1 = Game.physics.arcade.collide(pl, platform1)
+    let flag2 = Game.physics.arcade.collide(pl, platform2)
+    let flag3 = Game.physics.arcade.collide(pl, platform3)
+    let flag4 = Game.physics.arcade.collide(pl, platform4)
+    let flag5 = Game.physics.arcade.collide(pl, platform5)
+
     if (Game.input.keyboard.addKey(Phaser.Keyboard.A).isDown){
         pl.body.velocity.x=-speed
-        if (pl.body.onFloor()===true){
+        if (pl.body.touching.down){
         pl.animations.play('Running_left')
         }
         direction = 'left'
     }else if (Game.input.keyboard.addKey(Phaser.Keyboard.D).isDown){
         pl.body.velocity.x = +speed
-        if (pl.body.onFloor()===true){
+        if (pl.body.touching.down){
         pl.animations.play('Running')
     }
         direction = 'right'
-    }else if(direction === 'right'&&pl.body.onFloor()===true){
+    }else if(direction === 'right'&&pl.body.touching.down){
         (pl.animations.play('Idle'))
-    }else if (direction === 'left'&&pl.body.onFloor()===true){
+    }else if (direction === 'left'&&pl.body.touching.down){
         pl.animations.play('Idle_left')
     }
-    if ((!((Game.input.keyboard.addKey(Phaser.Keyboard.A).repeats % 30)) || !((Game.input.keyboard.addKey(Phaser.Keyboard.D).repeats % 30))) & Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isUp ) {
+    if ((!((Game.input.keyboard.addKey(Phaser.Keyboard.A).repeats % 30)) || !((Game.input.keyboard.addKey(Phaser.Keyboard.D).repeats % 30))) & Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isUp && pl.body.touching.down) {
         footstep.play()
     }
-    const flag1 = Game.physics.arcade.collide(pl, platform1)
-    const flag2 = Game.physics.arcade.collide(pl, platform2)
-    const flag3 = Game.physics.arcade.collide(pl, platform3)
-    const flag4 = Game.physics.arcade.collide(pl, platform4)
-    const flag5 = Game.physics.arcade.collide(pl, platform5)
-    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && (flag1 || flag2 || flag3 || flag4 || flag5) && Game.time.now > jumpTimer)
+    
+    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && pl.body.touching.down && Game.time.now > jumpTimer)
     {
-        pl.body.velocity.y = -600
+        pl.body.velocity.y = -500
         jumpTimer = Game.time.now + 750
         jumpsound.play()
         if(direction === 'right'){
@@ -59,7 +61,7 @@ const playermovment = function (){
         }else if (direction === 'left'){
            pl.animations.play('Jump_left')} 
     }
-    if (pl.body.onFloor() === false&&pl.body.velocity.y<-600){
+    if (pl.body.onFloor() === false&&pl.body.velocity.y<-500){
          if(direction === 'right'){
             pl.animations.play('Top',10,false)
         }else if (direction === 'left'){
