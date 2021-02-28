@@ -8,8 +8,6 @@ const playerf = function () {
     pl.body.collideWorldBounds = true
     pl.body.gravity.y = 400
     pl.body.setSize (25,31, 15)
-    console.log(pl.body.width)
-    console.log(pl.body.height)
 }
 const plAnim = function() {
     pl.animations.add('Idle',[7,8,9,10],4.8,true)
@@ -53,7 +51,7 @@ const playermovment = function (){
     
     if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && pl.body.touching.down && Game.time.now > jumpTimer)
     {
-        pl.body.velocity.y = -500
+        pl.body.velocity.y = -600
         jumpTimer = Game.time.now + 750
         jumpsound.play()
         if(direction === 'right'){
@@ -61,7 +59,7 @@ const playermovment = function (){
         }else if (direction === 'left'){
            pl.animations.play('Jump_left')} 
     }
-    if (pl.body.onFloor() === false&&pl.body.velocity.y<-500){
+    if (pl.body.onFloor() === false&&pl.body.velocity.y<-600){
          if(direction === 'right'){
             pl.animations.play('Top',10,false)
         }else if (direction === 'left'){
@@ -69,4 +67,10 @@ const playermovment = function (){
         }
     }
     
+}
+
+const deadly_void = function(){
+    if (pl.y > 6000){
+        fall = true
+    }
 }

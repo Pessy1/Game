@@ -10,11 +10,6 @@ const enemy_phys = function() {
     enemy.body.gravity.y = 500
     enemy.body.collideWorldBounds = true
     enemy.body.setSize(90, 162, 60)
-    console.log(enemy.body)
-    console.log(enemy.body.width)
-    console.log(enemy.body.height)
-    console.log(enemy.width)
-    
 }
 
 const archerer_movment = function () {

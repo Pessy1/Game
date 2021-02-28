@@ -10,6 +10,7 @@ let speed = 250
 let plat
 let jumpTimer = 0
 let direction = 'right'
+let text
 let healthbar
 let healthbar_enemy
 let healthbar_enemy_2
@@ -19,6 +20,9 @@ let shot_counter = 0
 let arrows
 let arrow
 let heal
+let archers
+let hounds
+let fall = false
 
 
 
@@ -33,6 +37,7 @@ function preload() {
     Game.load.image("plat3", "platform_3.png")
     Game.load.image("plat4", "platform 4.png")
     Game.load.image("plat5", "platform 5.png")
+    Game.load.image("game_over", "over.png")
     Game.load.image ('platform','download (1).png')
     Game.load.spritesheet ('Archerer', 'Archerer.png',680/4,680/4)
     Game.load.spritesheet ('Hound', 'hell-hound-run.png',335/5,32)
@@ -50,6 +55,8 @@ function create() {
     enemy_2_create()
     enemy_2_phys()
 
+    text = Game.add.sprite(0, 0, 'game_over')
+    text.kill()
 
     heal = Game.add.sprite(enemy.x, enemy.y, 'ball')
     heal.scale.setTo(0.05)
@@ -72,7 +79,6 @@ function create() {
     healthbar_enemy_2.anchor.setTo(0.5, 1)
 
     Game.stage.backgroundColor = "#4488AA"
-    console.log (pl.animations)
 
     arrows = Game.add.group()
     platform1 = Game.add.group()
@@ -84,13 +90,25 @@ function create() {
     enemy.frame = 13
 
     Game.world.setBounds(0,0,10000,7000)
-    Game.camera.follow(pl)
 
 }
 
 function update() {
     playermovment()
     collide()
+    deadly_void()
+
+    console.log(pl.y)
+
+    if (fall === false){
+        Game.camera.follow(pl)
+    }else if (fall === true){
+        Game.camera.unfollow(pl)
+        text.x = Game.camera.x + Game.camera.width/2
+        text.y = Game.camera.y+ Game.camera.height/2
+        text.anchor.setTo(0.5)
+        text.revive()
+    }
 
     console.log(pl.x)
 
@@ -165,7 +183,7 @@ const death = function() {
 }
     
 const damage = function() {
-    if (Phaser.Rectangle.intersects(pl.body, enemy.body)){
+    if (Phaser.Rectangle.intersects(pl.body, enemy.body)||Phaser.Rectangle.intersects(pl.body, enemy_2.body)){
         pl.health -= 1
     }
 }

@@ -19,7 +19,6 @@ const shooting = function() {
                 if (Phaser.Rectangle.intersects(pl.body, element.body)){
                     pl.health -= 10
                     element.kill()
-                    console.log(1)
                 }
             }
         })
