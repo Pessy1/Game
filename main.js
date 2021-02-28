@@ -215,18 +215,28 @@ const collide = function() {
 const plat_placement = function(){
     // 1
     platform4_create(0, 5300)
-    platform4_create(700, 5000)
-    platform4_create(300, 4700)
-    platform4_create(0, 4400)
+    platform4_create(750, 5100)
+    platform4_create(300, 4800)
+    platform4_create(0, 4500)
+    platform3_create(550, 4200)
     platform3_create(550, 4000)
     platform5_create(1000, 3700)
     // 2
-    platform3_create(2300, 3350)
+    platform3_create(2300, 3400)
     platform3_create(1800, 3150)
     platform1_create(1000, 3000)
-    platform2_create(650, 2800)
+    platform2_create(400, 2800)
     // 3
     platform4_create(3400, 3700)
-    platform4_create(3900, 3500)
-    platform4_create(4400, 3300)
+    platform4_create(4200, 3500)
+    platform4_create(5000, 3300)
+    // 4
+    platform3_create(4300, 3100)
+    platform3_create(4900, 2800)
+    platform3_create(4200, 2600)
+    platform1_create(3500, 2300)
+    platform2_create(3000, 2000)
+    // 5
+    platform2_create(5100, 4300)
+    platform4_create(6000, 4700)
 }
