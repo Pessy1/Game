@@ -5,6 +5,9 @@ const Game = new Phaser.Game(window.innerWidth,window.innerHeight, Phaser.AUTO, 
     update:update })
 
 let pl
+let attack = 0
+let attacker
+let attacker1
 let music,footstep,jumpsound,counter = 0,plat1,plat2,plat3,plat4,plat5, platform1, platform2, platform3, platform4, platform5, burzina = 5
 let speed = 250
 let plat
@@ -29,6 +32,8 @@ let fall = false
 function preload() {
     Game.load.spritesheet ('player','Player_left_right.png',701/14.05,587/16.38)
     Game.load.spritesheet ('player_left','asddsaasd2.png')
+    Game.load.image('attack_left', 'attack_left.png')
+    Game.load.image('attack_right', 'attack_right.png')
     Game.load.audio('music', "Naruto Theme - The Raising Fighting Spirit (320  kbps).mp3")
     Game.load.audio("jumpsound", "Jump.wav")
     Game.load.audio("footstep", "Footstep1.wav")
@@ -58,6 +63,14 @@ function create() {
     text = Game.add.sprite(0, 0, 'game_over')
     text.kill()
 
+    attacker = Game.add.sprite(pl.x-70, pl.y+20, 'attack_left')
+    Game.physics.enable(attacker)
+    attacker.scale.setTo(0)
+
+    attacker1 = Game.add.sprite(pl.x-70, pl.y+20, 'attack_right')
+    Game.physics.enable(attacker1)
+    attacker1.scale.setTo(0)
+    
     heal = Game.add.sprite(enemy.x, enemy.y, 'ball')
     heal.scale.setTo(0.05)
     heal.kill()
@@ -97,8 +110,15 @@ function update() {
     playermovment()
     collide()
     deadly_void()
+    attack_player()
 
-    console.log(pl.y)
+    attacker.x = pl.x-70
+    attacker.y = pl.y+15
+    
+    attacker1.x = pl.x-70
+    attacker1.y = pl.y+15
+
+    //console.log(pl.y)
 
     if (fall === false){
         Game.camera.follow(pl)
@@ -110,14 +130,14 @@ function update() {
         text.revive()
     }
 
-    console.log(pl.x)
+    //console.log(pl.x)
 
     enemy_2_movement()
 
     shot_counter += 1
 
-    if (pl.visible && enemy.visible){
-        damage()
+    damage()
+    if (pl.visible && enemy.visible && enemy_2.visible){
         death()
     }
 
@@ -140,8 +160,9 @@ function update() {
 
     healthbar_enemy_2.x = enemy_2.x+enemy_2.width/2+6
     healthbar_enemy_2.y = enemy_2.y-5
-
-    shooting()
+    if (enemy.visible === true){
+        shooting()
+    }
 
     if (Game.input.keyboard.addKey(Phaser.Keyboard.F).repeats){
         debug()
@@ -181,10 +202,30 @@ const death = function() {
         heal.y = enemy.y
     }
 }
-    
+
 const damage = function() {
-    if (Phaser.Rectangle.intersects(pl.body, enemy.body)||Phaser.Rectangle.intersects(pl.body, enemy_2.body)){
-        pl.health -= 1
+    if (attack === 0){
+        pl.scale.setTo(3)
+        attacker.scale.setTo(0)
+        attacker1.scale.setTo(0)
+        if (pl.visible && enemy.visible && enemy_2.visible){
+        if (Phaser.Rectangle.intersects(pl.body, enemy.body)||Phaser.Rectangle.intersects(pl.body, enemy_2.body)){
+            pl.health -= 1
+        }}
+    }
+    else if (attack === 1){
+        pl.animations.add('Invisible',[222],4).play()
+        if (direction === 'left'){
+            attacker.scale.setTo(3.5)
+        }else if (direction === 'right'){
+            attacker1.scale.setTo(3.5)
+        }
+        if (Phaser.Rectangle.intersects(attacker.body, enemy.body)){
+            enemy.health -= 10
+        }
+        if (Phaser.Rectangle.intersects(attacker1.body, enemy.body)){
+            enemy.health -= 10
+        }
     }
 }
     

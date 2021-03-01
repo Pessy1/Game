@@ -59,13 +59,19 @@ const playermovment = function (){
         }else if (direction === 'left'){
            pl.animations.play('Jump_left')} 
     }
-    if (pl.body.onFloor() === false&&pl.body.velocity.y<-600){
+    if (pl.body.touching.down === false&&pl.body.velocity.y<-600){
          if(direction === 'right'){
             pl.animations.play('Top',10,false)
         }else if (direction === 'left'){
            pl.animations.play('Top_left')
         }
-    }
+    }//else if (pl.body.touching.down === false){
+        //if(direction === 'right'){
+            //pl.animations.play('Top',10,false)
+        //}else if (direction === 'left'){
+           //pl.animations.play('Top_left')
+        //}
+    //}
     
 }
 
@@ -73,4 +79,13 @@ const deadly_void = function(){
     if (pl.y > 6000){
         fall = true
     }
+}
+
+const attack_player = function(){
+    if (pl.body.touching.down === true){
+        if (Game.input.activePointer.leftButton.justPressed()){
+            attack = 1
+        }else {attack = 0}
+    }
+    console.log(attack)
 }

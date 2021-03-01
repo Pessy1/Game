@@ -7,7 +7,7 @@ const arrow_create = function() {
 } 
 
 const shooting = function() {
-    if (shot_counter === 70){
+    if (shot_counter === 70 && arrows){
         enemy.animations.add('shoot',[13,14,15,10,9,8],10,false).play()
         arrow_create()
         shot_counter = 0
