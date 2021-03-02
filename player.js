@@ -6,7 +6,7 @@ const playerf = function () {
     pl.health = 80
     Game.physics.enable (pl)
     pl.body.collideWorldBounds = true
-    pl.body.gravity.y = 400
+    pl.body.gravity.y = 650
     pl.body.setSize (25,31, 15)
 }
 const plAnim = function() {
@@ -21,6 +21,8 @@ const plAnim = function() {
 }
 const playermovment = function (){
     pl.body.velocity.x=0
+
+    pl.health -= 0.1
 
     let flag1 = Game.physics.arcade.collide(pl, platform1)
     let flag2 = Game.physics.arcade.collide(pl, platform2)
@@ -49,9 +51,9 @@ const playermovment = function (){
         footstep.play()
     }
     
-    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && pl.body.touching.down && Game.time.now > jumpTimer)
+    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && pl.body.touching.down && Game.time.now > jumpTimer && attack === 0)
     {
-        pl.body.velocity.y = -600
+        pl.body.velocity.y = -800
         jumpTimer = Game.time.now + 750
         jumpsound.play()
         if(direction === 'right'){
@@ -59,7 +61,7 @@ const playermovment = function (){
         }else if (direction === 'left'){
            pl.animations.play('Jump_left')} 
     }
-    if (pl.body.touching.down === false&&pl.body.velocity.y<-600){
+    if (pl.body.touching.down === false&&pl.body.velocity.y<-800){
          if(direction === 'right'){
             pl.animations.play('Top',10,false)
         }else if (direction === 'left'){
@@ -82,7 +84,7 @@ const deadly_void = function(){
 }
 
 const attack_player = function(){
-    if (pl.body.touching.down === true){
+    if (pl.body.touching.down === true && pl.visible === true){
         if (Game.input.activePointer.leftButton.justPressed()){
             attack = 1
         }else {attack = 0}
