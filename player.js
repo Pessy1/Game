@@ -1,6 +1,6 @@
 const playerf = function () {
     
-    pl=Game.add.sprite (0, 5300-100,'player')
+    pl=Game.add.sprite (5000, 3300-100,'player')
     pl.anchor.setTo(0.5, 0)
     pl.scale.setTo(3)
     pl.health = 80
@@ -53,7 +53,7 @@ const playermovment = function (){
     
     if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && pl.body.touching.down && Game.time.now > jumpTimer && attack === 0)
     {
-        pl.body.velocity.y = -700
+        pl.body.velocity.y = -750
         jumpTimer = Game.time.now + 700
         jumpsound.play()
         if(direction === 'right'){

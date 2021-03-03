@@ -51,6 +51,7 @@ function preload() {
     Game.load.spritesheet ('arrow','Move.png',48/2,5)
     Game.load.image('redflag', 'redflag.png')
     Game.load.image("diamond", "diamond.png")
+    Game.load.image("strelka", "strelka.png")
 }
 
 function create() {
@@ -104,7 +105,7 @@ function create() {
     text_restart = Game.add.sprite(0, 0, 'restart')
     text_restart.kill()
 
-    redflag = Game.add.sprite(9650, 3100, "redflag")
+    redflag = Game.add.sprite(9800, 3100, "redflag")
     redflag.scale.setTo(0.2)
     Game.physics.arcade.enable(redflag)
     redflag.body.allowGravity = false
@@ -117,6 +118,9 @@ function create() {
     diamond_create(3025, 1900)
     diamond_create(6425, 2500)
     scoreText = Game.add.text(Game.camera.x, Game.camera.y, "", {fontSize: "32px", fill:"#000"})
+
+    let strelka = Game.add.sprite(5500, 3000, "strelka")
+    strelka.scale.setTo(0.1)
 }
 
 function update() {
@@ -342,8 +346,7 @@ const plat_placement = function(){
     platform1_create(3500, 2300)
     platform2_create(3000, 2000)
     // 5
-    platform2_create(5100, 4300)
-    platform4_create(6000, 4700)
+    platform4_create(5900, 4700)
     platform2_create(6600, 4700)
     platform2_create(7000, 4700)
     platform2_create(7600, 4700)
