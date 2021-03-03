@@ -110,7 +110,7 @@ function create() {
     redflag.body.allowGravity = false
     redflag.body.collideWorldBounds = true
     redflag.body.immovable = true
-    
+
     diamonds = Game.add.group()
     diamonds.enableBody = true
     diamond_create(425, 2700)
