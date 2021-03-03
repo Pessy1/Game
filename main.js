@@ -14,6 +14,7 @@ let plat
 let jumpTimer = 0
 let direction = 'right'
 let text
+let text_restart
 let healthbar
 let healthbar_enemy
 let healthbar_enemy_2
@@ -22,7 +23,6 @@ let enemy_2
 let shot_counter = 0
 let arrows
 let arrow
-let heal
 let archers
 let hounds
 let fall = false
@@ -30,6 +30,8 @@ let fall = false
 
 
 function preload() {
+    Game.load.image("game_over", "over.png")
+    Game.load.image("restart", "restart.png")
     Game.load.spritesheet ('player','Player_left_right.png',701/14.05,587/16.38)
     Game.load.spritesheet ('player_left','asddsaasd2.png')
     Game.load.image('attack_left', 'attack_left.png')
@@ -42,11 +44,9 @@ function preload() {
     Game.load.image("plat3", "platform_3.png")
     Game.load.image("plat4", "platform 4.png")
     Game.load.image("plat5", "platform 5.png")
-    Game.load.image("game_over", "over.png")
     Game.load.image ('platform','download (1).png')
     Game.load.spritesheet ('Archerer', 'Archerer.png',680/4,680/4)
     Game.load.spritesheet ('Hound', 'hell-hound-run.png',335/5,32)
-    Game.load.image('ball', 'heal.png')
     Game.load.image('healthbar', 'platform.jpg')
     Game.load.spritesheet ('arrow','Move.png',48/2,5)
 }
@@ -60,9 +60,6 @@ function create() {
     enemy_2_create()
     enemy_2_phys()
 
-    text = Game.add.sprite(0, 0, 'game_over')
-    text.kill()
-
     attacker = Game.add.sprite(pl.x-70, pl.y+20, 'attack_left')
     Game.physics.enable(attacker)
     attacker.scale.setTo(0)
@@ -70,11 +67,6 @@ function create() {
     attacker1 = Game.add.sprite(pl.x-70, pl.y+20, 'attack_right')
     Game.physics.enable(attacker1)
     attacker1.scale.setTo(0)
-    
-    heal = Game.add.sprite(enemy.x, enemy.y, 'ball')
-    heal.scale.setTo(0.05)
-    heal.kill()
-    Game.physics.arcade.enable(heal)
 
     healthbar = Game.add.sprite(0,0,'healthbar')
     healthbar.width = pl.health
@@ -104,6 +96,11 @@ function create() {
 
     Game.world.setBounds(0,0,10000,7000)
 
+    text = Game.add.sprite(0, 0, 'game_over')
+    text.kill()
+
+    text_restart = Game.add.sprite(0, 0, 'restart')
+    text_restart.kill()
 }
 
 function update() {
@@ -128,6 +125,15 @@ function update() {
         text.y = Game.camera.y+ Game.camera.height/2
         text.anchor.setTo(0.5)
         text.revive()
+        text_restart.x = Game.camera.x + Game.camera.width/2
+        text_restart.y = Game.camera.y+ Game.camera.height/2 + 300
+        text_restart.scale.setTo(0.2)
+        text_restart.anchor.setTo(0.5)
+        text_restart.revive()
+        if (Game.input.keyboard.addKey(Phaser.Keyboard.ENTER).isDown){
+            restart()
+            fall = false
+        }
     }
 
     //console.log(pl.x)
@@ -137,14 +143,7 @@ function update() {
     shot_counter += 1
 
     damage()
-    if (pl.visible && enemy.visible && enemy_2.visible){
-        death()
-    }
-
-    if (pl.visible && heal.visible){
-        Game.physics.arcade.moveToObject(heal, pl, 500)
-        healing()
-    }
+    death()
 
     healthbar.width = pl.health
 
@@ -191,15 +190,28 @@ const musicandsound = function () {
 }
 const death = function() {
     if (pl.health < 0){
-        healthbar.destroy()
+        healthbar.kill()
         pl.kill()
+        text.x = Game.camera.x + Game.camera.width/2
+        text.y = Game.camera.y+ Game.camera.height/2
+        text.anchor.setTo(0.5)
+        text.revive()
+        text_restart.x = Game.camera.x + Game.camera.width/2
+        text_restart.y = Game.camera.y+ Game.camera.height/2 + 300
+        text_restart.scale.setTo(0.2)
+        text_restart.anchor.setTo(0.5)
+        text_restart.revive()
+        if (Game.input.keyboard.addKey(Phaser.Keyboard.ENTER).isDown){
+            restart()
+        }
     }
     if (enemy.health < 0){
-        healthbar_enemy.destroy()
+        healthbar_enemy.kill()
         enemy.kill()
-        heal.revive()
-        heal.x = enemy.x
-        heal.y = enemy.y
+    }
+    if (enemy_2.health < 0){
+        healthbar_enemy_2.kill()
+        enemy_2.kill()
     }
 }
 
@@ -220,20 +232,27 @@ const damage = function() {
         }else if (direction === 'right'){
             attacker1.scale.setTo(3.5)
         }
-        if (Phaser.Rectangle.intersects(attacker.body, enemy.body)){
-            enemy.health -= 10
+        if (pl.visible && enemy.visible){
+            if (Phaser.Rectangle.intersects(attacker.body, enemy.body)){
+                enemy.health -= 5
+                pl.health += 5
+            }
+            if (Phaser.Rectangle.intersects(attacker1.body, enemy.body)){
+                enemy.health -= 5
+                pl.health += 5
+            }
         }
-        if (Phaser.Rectangle.intersects(attacker1.body, enemy.body)){
-            enemy.health -= 10
+        if (pl.visible && enemy_2.visible){
+            if (Phaser.Rectangle.intersects(attacker.body, enemy_2.body)){
+                enemy_2.health -= 5
+                pl.health += 5
+            }
+            if (Phaser.Rectangle.intersects(attacker1.body, enemy_2.body)){
+                enemy_2.health -= 5
+                pl.health += 5
+            }
         }
     }
-}
-    
-const healing = function() {
-    if (pl.overlap(heal)){
-        pl.health += 10
-        heal.kill()
-    }    
 }
 
 const collide = function() {
@@ -280,4 +299,20 @@ const plat_placement = function(){
     // 5
     platform2_create(5100, 4300)
     platform4_create(6000, 4700)
+}
+
+const restart = function() {
+    healthbar.revive()
+    pl.revive()
+    pl.health = 80
+    pl.x = 4900
+    pl.y = 2800-100
+    text.kill()
+    text_restart.kill()
+    healthbar_enemy.revive()
+    enemy.revive()
+    enemy.health = 50
+    healthbar_enemy_2.revive()
+    enemy_2.revive()
+    enemy_2.health = 50
 }
