@@ -7,12 +7,13 @@ const arrow_create = function() {
 } 
 
 const shooting = function() {
-    if (shot_counter === 70 && arrows){
+    if (arrows){
         enemy.animations.add('shoot',[13,14,15,10,9,8],10,false).play()
         arrow_create()
-        shot_counter = 0
     }
-    
+}
+
+const arrow_collision = function() {
     if (arrows && arrows.length > 0){
         arrows.forEach(element => {
             if (pl.visible && element.visible){

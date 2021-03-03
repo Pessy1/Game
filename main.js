@@ -19,10 +19,13 @@ let healthbar
 let healthbar_enemy
 let healthbar_enemy_2
 let enemy
+let enemy2
 let enemy_2
 let shot_counter = 0
 let arrows
+let arrow2s
 let arrow
+let arrow2
 let archers
 let hounds
 let fall = false
@@ -59,7 +62,9 @@ function create() {
     playerf ()
     plAnim ()
     enemy_create()
+    enemy2_create()
     enemy_phys()
+    enemy2_phys()
     enemy_2_create()
     enemy_2_phys()
 
@@ -76,26 +81,21 @@ function create() {
     healthbar.scale.setTo(0.05)
     healthbar.anchor.setTo(0.5, 1)
 
-    healthbar_enemy = Game.add.sprite(0,0,'healthbar')
-    healthbar_enemy.width = enemy.health
-    healthbar_enemy.scale.setTo(0.05)
-    healthbar_enemy.anchor.setTo(0.5, 1)
-
     healthbar_enemy_2 = Game.add.sprite(0,0,'healthbar')
-    healthbar_enemy_2.width = enemy.health
+    healthbar_enemy_2.width = enemy_2.health
     healthbar_enemy_2.scale.setTo(0.05)
     healthbar_enemy_2.anchor.setTo(0.5, 1)
 
     Game.stage.backgroundColor = "#4488AA"
 
     arrows = Game.add.group()
+    arrow2s = Game.add.group()
     platform1 = Game.add.group()
     platform2 = Game.add.group()
     platform3 = Game.add.group()
     platform4 = Game.add.group()
     platform5 = Game.add.group()
     plat_placement()
-    enemy.frame = 13
 
     Game.world.setBounds(0,0,10000,7000)
 
@@ -170,18 +170,22 @@ function update() {
     healthbar.x = pl.x
     healthbar.y = pl.y
 
-    healthbar_enemy.width = enemy.health
+    enemy_movment()
+    enemy2_movment()
 
-    healthbar_enemy.x = enemy.x+6
-    healthbar_enemy.y = enemy.y-5
+    if (shot_counter === 70){
+        enemy_shot()
+        enemy2_shot()
+        shot_counter = 0
+    }
+
+    arrow_collision()
+    arrow2_collision()
 
     healthbar_enemy_2.width = enemy_2.health
 
     healthbar_enemy_2.x = enemy_2.x+enemy_2.width/2+6
     healthbar_enemy_2.y = enemy_2.y-5
-    if (enemy.visible === true){
-        shooting()
-    }
 
     if (Game.input.keyboard.addKey(Phaser.Keyboard.F).repeats){
         debug()
@@ -253,10 +257,8 @@ const death = function() {
             restart()
         }
     }
-    if (enemy.health < 0){
-        healthbar_enemy.kill()
-        enemy.kill()
-    }
+    enemy_dying()
+    enemy2_dying()
     if (enemy_2.health < 0){
         healthbar_enemy_2.kill()
         enemy_2.kill()
@@ -268,10 +270,12 @@ const damage = function() {
         pl.scale.setTo(3)
         attacker.scale.setTo(0)
         attacker1.scale.setTo(0)
-        if (pl.visible && enemy.visible && enemy_2.visible){
-        if (Phaser.Rectangle.intersects(pl.body, enemy.body)||Phaser.Rectangle.intersects(pl.body, enemy_2.body)){
+        if (pl.visible && enemy_2.visible){
+        if (Phaser.Rectangle.intersects(pl.body, enemy_2.body)){
             pl.health -= 1
         }}
+        enemy_damage()
+        enemy2_damage()
     }
     else if (attack === 1){
         pl.animations.add('Invisible',[222],4).play()
@@ -280,16 +284,8 @@ const damage = function() {
         }else if (direction === 'right'){
             attacker1.scale.setTo(3.5)
         }
-        if (pl.visible && enemy.visible){
-            if (Phaser.Rectangle.intersects(attacker.body, enemy.body)){
-                enemy.health -= 5
-                pl.health += 5
-            }
-            if (Phaser.Rectangle.intersects(attacker1.body, enemy.body)){
-                enemy.health -= 5
-                pl.health += 5
-            }
-        }
+        enemy_hit()
+        enemy2_hit()
         if (pl.visible && enemy_2.visible){
             if (Phaser.Rectangle.intersects(attacker.body, enemy_2.body)){
                 enemy_2.health -= 5
@@ -309,11 +305,8 @@ const collide = function() {
     Game.physics.arcade.collide(pl, platform3)
     Game.physics.arcade.collide(pl, platform4)
     Game.physics.arcade.collide(pl, platform5)
-    Game.physics.arcade.collide(enemy, platform1)
-    Game.physics.arcade.collide(enemy, platform2)
-    Game.physics.arcade.collide(enemy, platform3)
-    Game.physics.arcade.collide(enemy, platform4)
-    Game.physics.arcade.collide(enemy, platform5)
+    enemy_collision()
+    enemy2_collision()
     Game.physics.arcade.collide(enemy_2, platform1)
     Game.physics.arcade.collide(enemy_2, platform2)
     Game.physics.arcade.collide(enemy_2, platform3)
@@ -324,7 +317,7 @@ const collide = function() {
 const plat_placement = function(){
     // 1
     platform4_create(0, 5300)
-    platform4_create(750, 5100)
+    platform4_create(550, 5100)
     platform4_create(300, 4800)
     platform4_create(0, 4500)
     platform3_create(550, 4200)
@@ -373,12 +366,11 @@ const restart = function() {
     pl.revive()
     pl.health = 80
     pl.x = 0
-    pl.y = 5200
+    pl.y = 5100
     text.kill()
     text_restart.kill()
-    healthbar_enemy.revive()
-    enemy.revive()
-    enemy.health = 50
+    enemy_revive()
+    enemy2_revive()
     healthbar_enemy_2.revive()
     enemy_2.revive()
     enemy_2.health = 50
