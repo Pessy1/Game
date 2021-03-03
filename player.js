@@ -1,12 +1,12 @@
 const playerf = function () {
     
-    pl=Game.add.sprite (6425, 2500-100,'player')
+    pl=Game.add.sprite (0, 5300-100,'player')
     pl.anchor.setTo(0.5, 0)
     pl.scale.setTo(3)
     pl.health = 80
     Game.physics.enable (pl)
     pl.body.collideWorldBounds = true
-    pl.body.gravity.y = 650
+    pl.body.gravity.y = 600
     pl.body.setSize (25,31, 15)
 }
 const plAnim = function() {
@@ -22,7 +22,7 @@ const plAnim = function() {
 const playermovment = function (){
     pl.body.velocity.x=0
 
-    pl.health -= 0.1
+    // pl.health -= 0.09
 
     let flag1 = Game.physics.arcade.collide(pl, platform1)
     let flag2 = Game.physics.arcade.collide(pl, platform2)
@@ -53,15 +53,15 @@ const playermovment = function (){
     
     if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && pl.body.touching.down && Game.time.now > jumpTimer && attack === 0)
     {
-        pl.body.velocity.y = -500
-        jumpTimer = Game.time.now + 750
+        pl.body.velocity.y = -700
+        jumpTimer = Game.time.now + 700
         jumpsound.play()
         if(direction === 'right'){
             pl.animations.play('Jump',10,false)
         }else if (direction === 'left'){
            pl.animations.play('Jump_left')} 
     }
-    if (pl.body.touching.down === false&&pl.body.velocity.y<-800){
+    if (pl.body.touching.down === false&&pl.body.velocity.y<-750){
          if(direction === 'right'){
             pl.animations.play('Top',10,false)
         }else if (direction === 'left'){
