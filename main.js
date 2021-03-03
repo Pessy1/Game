@@ -8,7 +8,7 @@ let pl
 let attack = 0
 let attacker
 let attacker1
-let music,footstep,jumpsound,counter = 0,plat1,plat2,plat3,plat4,plat5, platform1, platform2, platform3, platform4, platform5, burzina = 5, diamonds, diamond, scoreText, score = 0
+let music,footstep,jumpsound,counter = 0,plat1,plat2,plat3,plat4,plat5, platform1, platform2, platform3, platform4, platform5, burzina = 5, diamonds, diamond, scoreText, score = 0, redflag
 let speed = 250
 let plat
 let jumpTimer = 0
@@ -104,7 +104,7 @@ function create() {
     text_restart = Game.add.sprite(0, 0, 'restart')
     text_restart.kill()
 
-    const redflag = Game.add.sprite(9650, 3100, "redflag")
+    redflag = Game.add.sprite(9650, 3100, "redflag")
     redflag.scale.setTo(0.2)
     Game.physics.arcade.enable(redflag)
     redflag.body.allowGravity = false
@@ -196,9 +196,24 @@ function update() {
 
    Game.physics.arcade.overlap(pl, diamonds, collectDiamond, null, this)
 
-//    if (pl.overlap(redflag) && score === 0 ){
-
-//    }
+   if (pl.overlap(redflag) && score === 0){
+        alert ("You Win! You didn't collect any diamonds :(")
+        restart()
+   }
+   if (pl.overlap(redflag) && score === 1){
+    alert ("You Win! You collected 1 diamond :)")
+    restart()
+   }
+   if (pl.overlap(redflag) && score === 2){
+    alert ("You Win! You collected 2 diamonds :)")
+    restart()
+   }
+   if (pl.overlap(redflag) && score === 3){
+    alert ("You Win! You collected 3 diamonds :)")
+    restart()
+   }
+scoreText.x = Game.camera.x
+scoreText.y = Game.camera.y
   
 }
 
@@ -354,8 +369,8 @@ const restart = function() {
     healthbar.revive()
     pl.revive()
     pl.health = 80
-    pl.x = 4900
-    pl.y = 2800-100
+    pl.x = 0
+    pl.y = 5200
     text.kill()
     text_restart.kill()
     healthbar_enemy.revive()
