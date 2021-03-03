@@ -22,7 +22,7 @@ const plAnim = function() {
 const playermovment = function (){
     pl.body.velocity.x=0
 
-    // pl.health -= 0.09
+    pl.health -= 0.09
 
     let flag1 = Game.physics.arcade.collide(pl, platform1)
     let flag2 = Game.physics.arcade.collide(pl, platform2)
@@ -54,7 +54,7 @@ const playermovment = function (){
     if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && pl.body.touching.down && Game.time.now > jumpTimer && attack === 0)
     {
         pl.body.velocity.y = -750
-        jumpTimer = Game.time.now + 700
+        jumpTimer = Game.time.now + 750
         jumpsound.play()
         if(direction === 'right'){
             pl.animations.play('Jump',10,false)
