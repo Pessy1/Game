@@ -8,7 +8,7 @@ let pl
 let attack = 0
 let attacker
 let attacker1
-let music,footstep,jumpsound,counter = 0,plat1,plat2,plat3,plat4,plat5, platform1, platform2, platform3, platform4, platform5, burzina = 5
+let music,footstep,jumpsound,counter = 0,plat1,plat2,plat3,plat4,plat5, platform1, platform2, platform3, platform4, platform5, burzina = 5, diamonds, diamond, scoreText, score = 0
 let speed = 250
 let plat
 let jumpTimer = 0
@@ -49,6 +49,8 @@ function preload() {
     Game.load.spritesheet ('Hound', 'hell-hound-run.png',335/5,32)
     Game.load.image('healthbar', 'platform.jpg')
     Game.load.spritesheet ('arrow','Move.png',48/2,5)
+    Game.load.image('redflag', 'redflag.png')
+    Game.load.image("diamond", "diamond.png")
 }
 
 function create() {
@@ -101,6 +103,20 @@ function create() {
 
     text_restart = Game.add.sprite(0, 0, 'restart')
     text_restart.kill()
+
+    const redflag = Game.add.sprite(9650, 3100, "redflag")
+    redflag.scale.setTo(0.2)
+    Game.physics.arcade.enable(redflag)
+    redflag.body.allowGravity = false
+    redflag.body.collideWorldBounds = true
+    redflag.body.immovable = true
+    
+    diamonds = Game.add.group()
+    diamonds.enableBody = true
+    diamond_create(425, 2700)
+    diamond_create(3025, 1900)
+    diamond_create(6425, 2500)
+    scoreText = Game.add.text(Game.camera.x, Game.camera.y, "", {fontSize: "32px", fill:"#000"})
 }
 
 function update() {
@@ -177,7 +193,20 @@ function update() {
    if (pl.overlap(platform5)){
        pl.x += burzina
    }
+
+   Game.physics.arcade.overlap(pl, diamonds, collectDiamond, null, this)
+
+//    if (pl.overlap(redflag) && score === 0 ){
+
+//    }
   
+}
+
+
+function collectDiamond (pl, diamond) {
+    diamond.kill()
+    score += 1
+    scoreText.text = "Collected Diamonds:" + score
 }
 
 const musicandsound = function () {
@@ -271,6 +300,7 @@ const collide = function() {
     Game.physics.arcade.collide(enemy_2, platform3)
     Game.physics.arcade.collide(enemy_2, platform4)
     Game.physics.arcade.collide(enemy_2, platform5)
+    Game.physics.arcade.collide(diamonds, platform2)
 }
 const plat_placement = function(){
     // 1
@@ -299,6 +329,25 @@ const plat_placement = function(){
     // 5
     platform2_create(5100, 4300)
     platform4_create(6000, 4700)
+    platform2_create(6600, 4700)
+    platform2_create(7000, 4700)
+    platform2_create(7600, 4700)
+    platform2_create(7850, 4700)
+    platform4_create(8200, 4700)
+    platform4_create(8800, 4400)
+    platform4_create(8100, 4100)
+    platform4_create(8700, 3750)
+    // 6
+    platform3_create(8100, 3500)
+    platform3_create(7600, 3200)
+    platform1_create(6900, 2900)
+    platform2_create(6400, 2600)
+    // 7
+    platform2_create(9500, 3700)
+    platform4_create(9550, 3500)
+    platform1_create(10000, 3200)
+
+
 }
 
 const restart = function() {
@@ -315,4 +364,10 @@ const restart = function() {
     healthbar_enemy_2.revive()
     enemy_2.revive()
     enemy_2.health = 50
+}
+
+const diamond_create = function(x, y) {
+    diamond = diamonds.create(x, y, "diamond")
+    diamond.body.gravity.y = 1000
+    diamond.scale.setTo(0.09)
 }
