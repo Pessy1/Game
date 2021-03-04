@@ -49,6 +49,7 @@ let arrow2
 let archers
 let hounds
 let fall = false
+let backg
 
 
 
@@ -75,11 +76,26 @@ function preload() {
     Game.load.spritesheet ('arrow','Move.png',48/2,5)
     Game.load.image('redflag', 'redflag.png')
     Game.load.image("diamond", "diamond.png")
+<<<<<<< Updated upstream
 }
 
 function create() {
     let strelka = Game.add.sprite(5500, 3000, "strelka")
     strelka.scale.setTo(0.1)
+=======
+    Game.load.image("strelka", "strelka.png")
+    Game.load.image('bg','background.png')
+}
+
+function create() {
+
+    backg=Game.add.sprite (0,0,'bg')
+    backg.scale.setTo (Game.width,Game.height)
+    backg.anchor.setTo(0,5)
+    backg.x = Game.width/2
+    backg.y = Game.height/2
+
+>>>>>>> Stashed changes
     musicandsound ()
     playerf ()
     plAnim ()
