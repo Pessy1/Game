@@ -1,5 +1,5 @@
 const enemy2_create = function() {
-    enemy2 = Game.add.sprite(5100, 3300-100,'Archerer')
+    enemy2 = Game.add.sprite(700, 4100,'Archerer')
     enemy2.scale.setTo(0.6)
     enemy2.anchor.setTo(0.5, 0)
     enemy2.health = 50

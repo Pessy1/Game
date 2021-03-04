@@ -1,6 +1,6 @@
 const playerf = function () {
     
-    pl=Game.add.sprite (5000, 3300-100,'player')
+    pl=Game.add.sprite (100, 5100,'player')
     pl.anchor.setTo(0.5, 0)
     pl.scale.setTo(3)
     pl.health = 80
@@ -22,9 +22,9 @@ const plAnim = function() {
 const playermovment = function (){
     pl.body.velocity.x=0
 
-    pl.health -= 0.09
+    //pl.health -= 0.09
 
-    if (dashing !== 30){
+    if (dashing !== 50){
         dashing += 1
     }
 
@@ -33,29 +33,32 @@ const playermovment = function (){
     let flag3 = Game.physics.arcade.collide(pl, platform3)
     let flag4 = Game.physics.arcade.collide(pl, platform4)
     let flag5 = Game.physics.arcade.collide(pl, platform5)
+    let falg6 = Game.physics.arcade.collide(pl, plat_hound)
+    let falg7 = Game.physics.arcade.collide(pl, plat_hound2)
+    let falg8 = Game.physics.arcade.collide(pl, plat_hound3)
 
     if (Game.input.keyboard.addKey(Phaser.Keyboard.A).isDown){
         pl.body.velocity.x=-speed
-        if (pl.body.touching.down){
+        if (pl.body.touching.down === true){
         pl.animations.play('Running_left')
         }
         direction = 'left'
     }else if (Game.input.keyboard.addKey(Phaser.Keyboard.D).isDown){
         pl.body.velocity.x = +speed
-        if (pl.body.touching.down){
+        if (pl.body.touching.down === true){
         pl.animations.play('Running')
     }
         direction = 'right'
-    }else if(direction === 'right'&&pl.body.touching.down){
+    }else if(direction === 'right'&&pl.body.touching.down === true){
         (pl.animations.play('Idle'))
-    }else if (direction === 'left'&&pl.body.touching.down){
+    }else if (direction === 'left'&&pl.body.touching.down === true){
         pl.animations.play('Idle_left')
     }
-    if ((!((Game.input.keyboard.addKey(Phaser.Keyboard.A).repeats % 30)) || !((Game.input.keyboard.addKey(Phaser.Keyboard.D).repeats % 30))) & Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isUp && pl.body.touching.down) {
+    if ((!((Game.input.keyboard.addKey(Phaser.Keyboard.A).repeats % 30)) || !((Game.input.keyboard.addKey(Phaser.Keyboard.D).repeats % 30))) & Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isUp && pl.body.touching.down === true) {
         footstep.play()
     }
     
-    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && pl.body.touching.down && Game.time.now > jumpTimer && attack === 0)
+    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && pl.body.touching.down === true && Game.time.now > jumpTimer && attack === 0)
     {
         pl.body.velocity.y = -750
         jumpTimer = Game.time.now + 750
@@ -73,7 +76,7 @@ const playermovment = function (){
         }
     }
 
-    if (dashing === 30){
+    if (dashing === 50){
         if (dash !== 10){
             if (Game.input.keyboard.addKey(Phaser.Keyboard.SHIFT).isDown)
             {   
