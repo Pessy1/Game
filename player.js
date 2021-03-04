@@ -1,6 +1,6 @@
 const playerf = function () {
     
-    pl=Game.add.sprite (Game.width/2, Game.height/2,'player')
+    pl=Game.add.sprite (Game.width-100, 0,'player')
     pl.anchor.setTo(0.5, 0)
     pl.scale.setTo(3)
     pl.health = 80
@@ -80,6 +80,7 @@ const playermovment = function (){
         if (dash !== 10){
             if (Game.input.keyboard.addKey(Phaser.Keyboard.SHIFT).isDown)
             {   
+                dasher = 1
                 if(direction === 'right'){
                     dash += 1
                     pl.body.velocity.x = speed*5
@@ -88,13 +89,35 @@ const playermovment = function (){
                     dash += 1
                     pl.body.velocity.x = -speed*5
                 }
-            }
+            }else {dasher = 0}
         }else if (dash === 10){
             dash = 0
             dashing = 0
         }
     }
-    
+
+    if (dasher === 1){
+        pl.animations.add('Invisible',[222],4).play()
+        if(direction === 'right'){
+            dash1.scale.setTo(3.2)
+            dash2.scale.setTo(0)
+        }
+        else if (direction === 'left'){
+            dash2.scale.setTo(3.2)
+            dash1.scale.setTo(0)
+        }
+    }else if (dasher === 0){
+        dash1.scale.setTo(0)
+        dash2.scale.setTo(0)
+        if(pl.body.touching.down === false){
+            if (direction === 'right'){
+                pl.animations.play('Top')
+            }
+            if (direction === 'left'){
+                pl.animations.play('Top_left')
+            }
+        }
+    }
         
         //else if (pl.body.touching.down === false){
         //if(direction === 'right'){

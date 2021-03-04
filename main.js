@@ -8,6 +8,9 @@ let pl
 let attack = 0
 let attacker
 let attacker1
+let dash1
+let dash2
+let dasher = 0
 let music,footstep,jumpsound,counter = 0,plat1,plat2,plat3,plat4,plat5, platform1, platform2, platform3, platform4, platform5, plat_hound, plat_hound2, plat_hound3, burzina = 5, diamonds, diamond, scoreText, score = 0, redflag
 let speed = 250
 let plat
@@ -61,6 +64,8 @@ function preload() {
     Game.load.spritesheet ('player_left','asddsaasd2.png')
     Game.load.image('attack_left', 'attack_left.png')
     Game.load.image('attack_right', 'attack_right.png')
+    Game.load.image('dash_right', 'dash_right.png')
+    Game.load.image('dash_left', 'dash_left.png')
     Game.load.audio('music', "Naruto Theme - The Raising Fighting Spirit (320  kbps).mp3")
     Game.load.audio("jumpsound", "Jump.wav")
     Game.load.audio("footstep", "Footstep1.wav")
@@ -76,21 +81,18 @@ function preload() {
     Game.load.spritesheet ('arrow','Move.png',48/2,5)
     Game.load.image('redflag', 'redflag.png')
     Game.load.image("diamond", "diamond.png")
+    Game.load.image("strelka", "strelka.png")
+    Game.load.image('bg','background.png')
 }
 
 
 function create() {
 
     backg=Game.add.sprite (0,0,'bg')
-    backg.scale.setTo (Game.width,Game.height)
-    backg.anchor.setTo(0,5)
-    backg.x = Game.width/2
-    backg.y = Game.height/2
+    backg.scale.setTo (Game.width/80,Game.height/38)
 
     let strelka = Game.add.sprite(5500, 3000, "strelka")
     strelka.scale.setTo(0.1)
-    Game.load.image("strelka", "strelka.png")
-    Game.load.image('bg','background.png')
 
 
     musicandsound ()
@@ -119,9 +121,15 @@ function create() {
     Game.physics.enable(attacker)
     attacker.scale.setTo(0)
 
+    dash1 = Game.add.sprite(pl.x, pl.y, 'dash_right')
+    dash1.scale.setTo(0)
+
     attacker1 = Game.add.sprite(pl.x-70, pl.y+20, 'attack_right')
     Game.physics.enable(attacker1)
     attacker1.scale.setTo(0)
+
+    dash2 = Game.add.sprite(pl.x, pl.y, 'dash_left')
+    dash2.scale.setTo(0)
 
     healthbar = Game.add.sprite(0,0,'healthbar')
     healthbar.width = pl.health
@@ -174,9 +182,15 @@ function update() {
 
     attacker.x = pl.x-70
     attacker.y = pl.y+15
+
+    dash1.x = pl.x-10
+    dash1.y = pl.y
     
     attacker1.x = pl.x-70
     attacker1.y = pl.y+15
+
+    dash2.x = pl.x+10
+    dash2.y = pl.y
 
     //console.log(pl.y)
 
@@ -339,8 +353,10 @@ const damage = function() {
         pl.animations.add('Invisible',[222],4).play()
         if (direction === 'left'){
             attacker.scale.setTo(3.5)
+            attacker1.scale.setTo(0)
         }else if (direction === 'right'){
             attacker1.scale.setTo(3.5)
+            attacker.scale.setTo(0)
         }
         enemy_hit()
         enemy2_hit()
