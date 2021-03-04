@@ -12,6 +12,9 @@ let music,footstep,jumpsound,counter = 0,plat1,plat2,plat3,plat4,plat5, platform
 let speed = 250
 let plat
 let jumpTimer = 0
+let dashTimer = 0
+let dash = 0
+let dashing = 0
 let direction = 'right'
 let text
 let text_restart

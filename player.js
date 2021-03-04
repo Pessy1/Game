@@ -24,6 +24,10 @@ const playermovment = function (){
 
     pl.health -= 0.09
 
+    if (dashing !== 30){
+        dashing += 1
+    }
+
     let flag1 = Game.physics.arcade.collide(pl, platform1)
     let flag2 = Game.physics.arcade.collide(pl, platform2)
     let flag3 = Game.physics.arcade.collide(pl, platform3)
@@ -67,7 +71,29 @@ const playermovment = function (){
         }else if (direction === 'left'){
            pl.animations.play('Top_left')
         }
-    }//else if (pl.body.touching.down === false){
+    }
+
+    if (dashing === 30){
+        if (dash !== 10){
+            if (Game.input.keyboard.addKey(Phaser.Keyboard.SHIFT).isDown)
+            {   
+                if(direction === 'right'){
+                    dash += 1
+                    pl.body.velocity.x = speed*5
+                }
+                if(direction === 'left'){
+                    dash += 1
+                    pl.body.velocity.x = -speed*5
+                }
+            }
+        }else if (dash === 10){
+            dash = 0
+            dashing = 0
+        }
+    }
+    
+        
+        //else if (pl.body.touching.down === false){
         //if(direction === 'right'){
             //pl.animations.play('Top',10,false)
         //}else if (direction === 'left'){
