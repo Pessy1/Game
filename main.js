@@ -76,16 +76,8 @@ function preload() {
     Game.load.spritesheet ('arrow','Move.png',48/2,5)
     Game.load.image('redflag', 'redflag.png')
     Game.load.image("diamond", "diamond.png")
-<<<<<<< Updated upstream
 }
 
-function create() {
-    let strelka = Game.add.sprite(5500, 3000, "strelka")
-    strelka.scale.setTo(0.1)
-=======
-    Game.load.image("strelka", "strelka.png")
-    Game.load.image('bg','background.png')
-}
 
 function create() {
 
@@ -95,7 +87,12 @@ function create() {
     backg.x = Game.width/2
     backg.y = Game.height/2
 
->>>>>>> Stashed changes
+    let strelka = Game.add.sprite(5500, 3000, "strelka")
+    strelka.scale.setTo(0.1)
+    Game.load.image("strelka", "strelka.png")
+    Game.load.image('bg','background.png')
+
+
     musicandsound ()
     playerf ()
     plAnim ()
