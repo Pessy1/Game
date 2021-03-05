@@ -6,7 +6,7 @@ const playerf = function () {
     pl.health = 110
     Game.physics.enable (pl)
     pl.body.collideWorldBounds = true
-    pl.body.gravity.y = 600
+    pl.body.gravity.y = 750
     pl.body.setSize (25,31, 15)
     pl.kill()
 }
