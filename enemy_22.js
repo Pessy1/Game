@@ -49,11 +49,11 @@ const enemy_22_hit = function() {
     if (pl.visible && enemy_22.visible){
         if (Phaser.Rectangle.intersects(attacker.body, enemy_22.body)){
             enemy_22.health -= 5
-            pl.health += 5
+            pl.health += 7
         }
         if (Phaser.Rectangle.intersects(attacker1.body, enemy_22.body)){
             enemy_22.health -= 5
-            pl.health += 5
+            pl.health += 7
         }
     }
 }
@@ -72,7 +72,7 @@ const enemy_22_collision = function() {
 const enemy_22_revive = function() {
     healthbar_enemy_22.revive()
     enemy_22.revive()
-    enemy_22.x = 6900
+    enemy_22.x = 7000
     enemy_22.y = 2800
     enemy_22.health = 50
 }

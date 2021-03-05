@@ -1,13 +1,14 @@
 const playerf = function () {
     
-    pl=Game.add.sprite (Game.width-100, 0,'player')
+    pl=Game.add.sprite (9600, 3100,'player')
     pl.anchor.setTo(0.5, 0)
     pl.scale.setTo(3)
-    pl.health = 80
+    pl.health = 110
     Game.physics.enable (pl)
     pl.body.collideWorldBounds = true
     pl.body.gravity.y = 600
     pl.body.setSize (25,31, 15)
+    pl.kill()
 }
 const plAnim = function() {
     pl.animations.add('Idle',[7,8,9,10],4.8,true)
@@ -21,8 +22,9 @@ const plAnim = function() {
 }
 const playermovment = function (){
     pl.body.velocity.x=0
-
-    //pl.health -= 0.09
+    if (pl.visible) {
+        pl.health -= 0.1
+    }
 
     if (dashing !== 50){
         dashing += 1
@@ -58,16 +60,19 @@ const playermovment = function (){
         footstep.play()
     }
     
-    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown && pl.body.touching.down === true && Game.time.now > jumpTimer && attack === 0)
-    {
-        pl.body.velocity.y = -750
-        jumpTimer = Game.time.now + 750
-        jumpsound.play()
-        if(direction === 'right'){
-            pl.animations.play('Jump',10,false)
-        }else if (direction === 'left'){
-           pl.animations.play('Jump_left')} 
-    }
+    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown)
+    {   
+        jumping = 1
+        if (pl.body.touching.down === true && Game.time.now > jumpTimer && attack === 0){
+            pl.body.velocity.y = -750
+            jumpTimer = Game.time.now + 750
+            jumpsound.play()
+            if(direction === 'right'){
+                pl.animations.play('Jump',10,false)
+            }else if (direction === 'left'){
+            pl.animations.play('Jump_left')} 
+        }
+    }else {jumping = 0}
     if (pl.body.touching.down === false&&pl.body.velocity.y<-750){
          if(direction === 'right'){
             pl.animations.play('Top',10,false)
@@ -109,7 +114,7 @@ const playermovment = function (){
     }else if (dasher === 0){
         dash1.scale.setTo(0)
         dash2.scale.setTo(0)
-        if(pl.body.touching.down === false){
+        if(pl.body.touching.down === false&&jumping === 0){
             if (direction === 'right'){
                 pl.animations.play('Top')
             }

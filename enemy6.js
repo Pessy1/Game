@@ -50,11 +50,11 @@ const enemy6_hit = function() {
     if (pl.visible && enemy6.visible){
         if (Phaser.Rectangle.intersects(attacker.body, enemy6.body)){
             enemy6.health -= 5
-            pl.health += 5
+            pl.health += 5.5
         }
         if (Phaser.Rectangle.intersects(attacker1.body, enemy6.body)){
             enemy6.health -= 5
-            pl.health += 5
+            pl.health += 5.5
         }
     }    
 }
