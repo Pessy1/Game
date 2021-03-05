@@ -394,7 +394,7 @@ function collectDiamond (pl, diamond) {
 }
 
 const musicandsound = function () {
-    music = Game.add.audio('music',0.05);
+    music = Game.add.audio('music', 0.05, true);
     music.play();
 
     footstep = Game.add.audio('footstep',1)
