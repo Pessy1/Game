@@ -113,8 +113,9 @@ function preload() {
 
 
 function create() {
-    backg=Game.add.sprite (0,0,'bg')
-    backg.scale.setTo (Game.width/400,Game.height/190)
+    backg=Game.add.sprite (0,-300,'bg')
+    //backg.scale.setTo (window.Width,window.Height)
+    backg.fixedToCamera = true
 
     let strelka = Game.add.sprite(5500, 3000, "strelka")
     strelka.scale.setTo(0.1)
@@ -229,6 +230,7 @@ function create() {
     diamond_create(3025, 1900)
     diamond_create(6425, 2500)
     scoreText = Game.add.text(Game.camera.x, Game.camera.y, "", {fontSize: "32px", fill:"#000"})
+    scoreText.fixedToCamera = true
 }
 
 function update() {
@@ -379,9 +381,6 @@ function update() {
             restart()
         }
    }
-scoreText.x = Game.camera.x
-scoreText.y = Game.camera.y
-  
 }
 
 
