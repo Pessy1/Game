@@ -88,7 +88,6 @@ function preload() {
     Game.load.image('2_diamonds', '2_diamonds.png')
     Game.load.image('3_diamonds', '3_diamonds.png')
     Game.load.spritesheet ('player','Player_left_right.png',701/14.05,587/16.38)
-    Game.load.spritesheet ('player_left','asddsaasd2.png')
     Game.load.image('attack_left', 'attack_left.png')
     Game.load.image('attack_right', 'attack_right.png')
     Game.load.image('dash_right', 'dash_right.png')
