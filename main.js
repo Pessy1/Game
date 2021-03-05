@@ -93,7 +93,7 @@ function preload() {
     Game.load.image('attack_right', 'attack_right.png')
     Game.load.image('dash_right', 'dash_right.png')
     Game.load.image('dash_left', 'dash_left.png')
-    Game.load.audio('music', "Naruto Theme - The Raising Fighting Spirit (320  kbps).mp3")
+    Game.load.audio('music', "Cave Story OST Mimiga Town Extended Version.mp3")
     Game.load.audio("jumpsound", "Jump.wav")
     Game.load.audio("footstep", "Footstep1.wav")
     Game.load.image("plat1", "platform 1.png")

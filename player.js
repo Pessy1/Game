@@ -1,6 +1,6 @@
 const playerf = function () {
     
-    pl=Game.add.sprite (9600, 3100,'player')
+    pl=Game.add.sprite (100, 5100,'player')
     pl.anchor.setTo(0.5, 0)
     pl.scale.setTo(3)
     pl.health = 110
