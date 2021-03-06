@@ -17,7 +17,7 @@ let attacker1
 let dash1
 let dash2
 let dasher = 0
-let music,footstep,jumpsound,counter = 0,plat1,plat2,plat3,plat4,plat5, platform1, platform2, platform3, platform4, platform5, plat_hound, plat_hound2, plat_hound3, burzina = 5, diamonds, diamond, scoreText, score = 0, redflag
+let music,footstep,jumpsound,counter = 0,plat1,plat2,plat3,plat4,plat5, platform1, platform2, platform3, platform4, platform5, plat_hound, plat_hound2, plat_hound3, burzina = 5, silvers, silver, scoreText, score = 0, redflag
 let speed = 250
 let plat
 let jumpTimer = 0
@@ -79,41 +79,38 @@ let backg
 
 
 function preload() {
-    Game.load.image("strelka", "strelka.png")
-    Game.load.image("game_over", "over.png")
-    Game.load.image("restart", "restart.png")
-    Game.load.image('title', 'title.png')
-    Game.load.image('zero_diamonds', 'zero_diamonds.png')
-    Game.load.image('1_diamond', '1_diamond.png')
-    Game.load.image('2_diamonds', '2_diamonds.png')
-    Game.load.image('3_diamonds', '3_diamonds.png')
-    Game.load.spritesheet ('player','Player_left_right.png',701/14.05,587/16.38)
-    Game.load.image('attack_left', 'attack_left.png')
-    Game.load.image('attack_right', 'attack_right.png')
-    Game.load.image('dash_right', 'dash_right.png')
-    Game.load.image('dash_left', 'dash_left.png')
-    Game.load.audio('music', "Cave Story OST Mimiga Town Extended Version.mp3")
-    Game.load.audio("jumpsound", "Jump.wav")
-    Game.load.audio("footstep", "Footstep1.wav")
-    Game.load.image("plat1", "platform 1.png")
-    Game.load.image("plat2", "platform 2.png")
-    Game.load.image("plat3", "platform_3.png")
-    Game.load.image("plat4", "platform 4.png")
-    Game.load.image("plat5", "platform 5.png")
-    Game.load.image ('platform','download (1).png')
-    Game.load.spritesheet ('Archerer', 'Archerer.png',680/4,680/4)
-    Game.load.spritesheet ('Hound', 'hell-hound-run.png',335/5,32)
-    Game.load.image('healthbar', 'platform.jpg')
-    Game.load.spritesheet ('arrow','Move.png',48/2,5)
-    Game.load.image('redflag', 'redflag.png')
-    Game.load.image("diamond", "diamond.png")
-    Game.load.image("strelka", "strelka.png")
-    Game.load.image('bg','background.png')
+    Game.load.image("strelka", "Assets/strelka.png")
+    Game.load.image("game_over", "Assets/GameScreens/over.png")
+    Game.load.image("restart", "Assets/GameScreens/restart.png")
+    Game.load.image('title', 'Assets/GameScreens/title.png')
+    Game.load.image('zero_diamonds', 'Assets/GameScreens/zero_diamonds.png')
+    Game.load.spritesheet ('player','Assets/Player/Player_left_right.png',701/14.05,587/16.38)
+    Game.load.image('attack_left', 'Assets/Player/attack_left.png')
+    Game.load.image('attack_right', 'Assets/Player/attack_right.png')
+    Game.load.image('dash_right', 'Assets/Player/dash_right.png')
+    Game.load.image('dash_left', 'Assets/Player/dash_left.png')
+    Game.load.audio('music', "Assets/Sound effects/Cave Story OST Mimiga Town Extended Version.mp3")
+    Game.load.audio("jumpsound", "Assets/Sound effects/Jump.wav")
+    Game.load.audio("footstep", "Assets/Sound effects/Footstep1.wav")
+    Game.load.image("plat1", "Assets/Platforms/platform 1.png")
+    Game.load.image("plat2", "Assets/Platforms/platform 2.png")
+    Game.load.image("plat3", "Assets/Platforms/platform_3.png")
+    Game.load.image("plat4", "Assets/Platforms/platform 4.png")
+    Game.load.image("plat5", "Assets/Platforms/platform 5.png")
+    // Game.load.image ('platform','Assets/Platforms/download (1).png')
+    Game.load.spritesheet ('Archerer', 'Assets/Enemies/Archer/Archerer.png',680/4,680/4)
+    Game.load.spritesheet ('Hound', 'Assets/Enemies/Hount/hell-hound-run.png',335/5,32)
+    Game.load.image('healthbar', 'Assets/platform.jpg')
+    Game.load.spritesheet ('arrow','Assets/Enemies/Archer/Move.png',48/2,5)
+    Game.load.image('redflag', 'Assets/redflag.png')
+    Game.load.image("strelka", "Assets/strelka.png")
+    Game.load.image('bg','Assets/background.png')
+    Game.load.image("silver", "Assets/silver.png")
 }
 
 
 function create() {
-    backg=Game.add.sprite (0,-300,'bg')
+    backg=Game.add.tileSprite(0,0,5000,10000,'bg')
     //backg.scale.setTo (window.Width,window.Height)
     backg.fixedToCamera = true
 
@@ -224,12 +221,12 @@ function create() {
     redflag.body.collideWorldBounds = true
     redflag.body.immovable = true
 
-    diamonds = Game.add.group()
-    diamonds.enableBody = true
-    diamond_create(425, 2700)
-    diamond_create(3025, 1900)
-    diamond_create(6425, 2500)
-    scoreText = Game.add.text(Game.camera.x, Game.camera.y, "", {fontSize: "32px", fill:"#000"})
+    silvers = Game.add.group()
+    silvers.enableBody = true
+    silver_create(425, 2700)
+    silver_create(3025, 1900)
+    silver_create(6425, 2500)
+    scoreText = Game.add.text(Game.camera.x, Game.camera.y, "", {fontSize: "32px", fill:"#b19cd9"})
     scoreText.fixedToCamera = true
 }
 
@@ -343,7 +340,7 @@ function update() {
        pl.x += burzina
    }
 
-   Game.physics.arcade.overlap(pl, diamonds, collectDiamond, null, this)
+   Game.physics.arcade.overlap(pl, silvers, collectSilver, null, this)
 
    if (pl.overlap(redflag) && score === 0){
         pl.kill()
@@ -384,11 +381,11 @@ function update() {
 }
 
 
-function collectDiamond (pl, diamond) {
-    diamond.kill()
+function collectSilver (pl, silver) {
+    silver.kill()
     scoreText.revive()
     score += 1
-    scoreText.text = "Collected Diamonds:" + score
+    scoreText.text = "Collected Silver:  " + score
 }
 
 const musicandsound = function () {
@@ -497,7 +494,7 @@ const collide = function() {
     enemy_2_collision()
     enemy_21_collision()
     enemy_22_collision()
-    Game.physics.arcade.collide(diamonds, platform2)
+    Game.physics.arcade.collide(silvers, platform2)
 }
 const plat_placement = function(){
     // 1
@@ -577,7 +574,7 @@ const restart = function() {
     win1.kill()
     win2.kill()
     win3.kill()
-    diamonds.forEach(element => {
+    silvers.forEach(element => {
         if (element.visible === false){
             element.revive()
         }
@@ -605,8 +602,8 @@ const start = function() {
     }
 }
 
-const diamond_create = function(x, y) {
-    diamond = diamonds.create(x, y, "diamond")
-    diamond.body.gravity.y = 1000
-    diamond.scale.setTo(0.09)
+const silver_create = function(x, y) {
+    silver = silvers.create(x, y, "silver")
+    silver.body.gravity.y = 1000
+    silver.scale.setTo(0.15)
 }

@@ -1,6 +1,6 @@
 const playerf = function () {
     
-    pl=Game.add.sprite (9700, 3000,'player')
+    pl=Game.add.sprite (4200, 2600-100,'player')
     pl.anchor.setTo(0.5, 0)
     pl.scale.setTo(3)
     pl.health = 110
@@ -41,12 +41,14 @@ const playermovment = function (){
 
     if (Game.input.keyboard.addKey(Phaser.Keyboard.A).isDown){
         pl.body.velocity.x=-speed
+        backg.tilePosition.x += 0.5
         if (pl.body.touching.down === true){
         pl.animations.play('Running_left')
         }
         direction = 'left'
     }else if (Game.input.keyboard.addKey(Phaser.Keyboard.D).isDown){
         pl.body.velocity.x = +speed
+        backg.tilePosition.x -= 0.5
         if (pl.body.touching.down === true){
         pl.animations.play('Running')
     }
