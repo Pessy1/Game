@@ -229,7 +229,7 @@ function create() {
     diamond_create(425, 2700)
     diamond_create(3025, 1900)
     diamond_create(6425, 2500)
-    scoreText = Game.add.text(Game.camera.x, Game.camera.y, "", {fontSize: "32px", fill:"#000"})
+    scoreText = Game.add.text(Game.camera.x, Game.camera.y, "", {fontSize: "32px", fill:"#b19cd9"})
     scoreText.fixedToCamera = true
 }
 
@@ -388,7 +388,7 @@ function collectDiamond (pl, diamond) {
     diamond.kill()
     scoreText.revive()
     score += 1
-    scoreText.text = "diamond" + score
+    scoreText.text = "Collected Diamonds:  " + score
 }
 
 const musicandsound = function () {
