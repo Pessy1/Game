@@ -16,6 +16,8 @@ const shooting = function() {
 const arrow_collision = function() {
     if (arrows && arrows.length > 0){
         arrows.forEach(element => {
+            element.checkWorldBounds = true
+            element.outOfBoundsKill = true
             if (pl.visible && element.visible){
                 if (Phaser.Rectangle.intersects(pl.body, element.body)){
                     pl.health -= 10
