@@ -17,7 +17,7 @@ let attacker1
 let dash1
 let dash2
 let dasher = 0
-let music,footstep,jumpsound,counter = 0,plat1,plat2,plat3,plat4,plat5, platform1, platform2, platform3, platform4, platform5, plat_hound, plat_hound2, plat_hound3, burzina = 5, diamonds, diamond, scoreText, score = 0, redflag
+let music,footstep,jumpsound,counter = 0,plat1,plat2,plat3,plat4,plat5, platform1, platform2, platform3, platform4, platform5, plat_hound, plat_hound2, plat_hound3, burzina = 5, silvers, silver, scoreText, score = 0, redflag
 let speed = 250
 let plat
 let jumpTimer = 0
@@ -106,7 +106,7 @@ function preload() {
     Game.load.image('healthbar', 'platform.jpg')
     Game.load.spritesheet ('arrow','Move.png',48/2,5)
     Game.load.image('redflag', 'redflag.png')
-    Game.load.image("diamond", "diamond.png")
+    Game.load.image("silver", "silver.png")
     Game.load.image("strelka", "strelka.png")
     Game.load.image('bg','background.png')
 }
@@ -224,11 +224,11 @@ function create() {
     redflag.body.collideWorldBounds = true
     redflag.body.immovable = true
 
-    diamonds = Game.add.group()
-    diamonds.enableBody = true
-    diamond_create(425, 2700)
-    diamond_create(3025, 1900)
-    diamond_create(6425, 2500)
+    silvers = Game.add.group()
+    silvers.enableBody = true
+    silver_create(425, 2700)
+    silver_create(3025, 1900)
+    silver_create(6425, 2500)
     scoreText = Game.add.text(Game.camera.x, Game.camera.y, "", {fontSize: "32px", fill:"#b19cd9"})
     scoreText.fixedToCamera = true
 }
@@ -343,7 +343,7 @@ function update() {
        pl.x += burzina
    }
 
-   Game.physics.arcade.overlap(pl, diamonds, collectDiamond, null, this)
+   Game.physics.arcade.overlap(pl, silvers, collectSilver, null, this)
 
    if (pl.overlap(redflag) && score === 0){
         pl.kill()
@@ -384,11 +384,11 @@ function update() {
 }
 
 
-function collectDiamond (pl, diamond) {
-    diamond.kill()
+function collectSilver (pl, silver) {
+    silver.kill()
     scoreText.revive()
     score += 1
-    scoreText.text = "Collected Diamonds:  " + score
+    scoreText.text = "Collected Silver:  " + score
 }
 
 const musicandsound = function () {
@@ -497,7 +497,7 @@ const collide = function() {
     enemy_2_collision()
     enemy_21_collision()
     enemy_22_collision()
-    Game.physics.arcade.collide(diamonds, platform2)
+    Game.physics.arcade.collide(silvers, platform2)
 }
 const plat_placement = function(){
     // 1
@@ -577,7 +577,7 @@ const restart = function() {
     win1.kill()
     win2.kill()
     win3.kill()
-    diamonds.forEach(element => {
+    silvers.forEach(element => {
         if (element.visible === false){
             element.revive()
         }
@@ -605,8 +605,8 @@ const start = function() {
     }
 }
 
-const diamond_create = function(x, y) {
-    diamond = diamonds.create(x, y, "diamond")
-    diamond.body.gravity.y = 1000
-    diamond.scale.setTo(0.09)
+const silver_create = function(x, y) {
+    silver = silvers.create(x, y, "silver")
+    silver.body.gravity.y = 1000
+    silver.scale.setTo(0.15)
 }
