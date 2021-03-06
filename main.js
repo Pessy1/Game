@@ -113,7 +113,7 @@ function preload() {
 
 
 function create() {
-    backg=Game.add.sprite (0,-300,'bg')
+    backg=Game.add.tileSprite(0,0,5000,10000,'bg')
     //backg.scale.setTo (window.Width,window.Height)
     backg.fixedToCamera = true
 
@@ -237,6 +237,8 @@ function update() {
     if(title.visible === true){
         start()
     }
+
+    backg.tilePosition.x -= 0.5
 
     playermovment()
     collide()
@@ -388,7 +390,7 @@ function collectDiamond (pl, diamond) {
     diamond.kill()
     scoreText.revive()
     score += 1
-    scoreText.text = "Collected Diamonds:" + score
+    scoreText.text = "diamond" + score
 }
 
 const musicandsound = function () {
