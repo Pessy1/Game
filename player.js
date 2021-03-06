@@ -41,12 +41,14 @@ const playermovment = function (){
 
     if (Game.input.keyboard.addKey(Phaser.Keyboard.A).isDown){
         pl.body.velocity.x=-speed
+        backg.tilePosition.x += 0.5
         if (pl.body.touching.down === true){
         pl.animations.play('Running_left')
         }
         direction = 'left'
     }else if (Game.input.keyboard.addKey(Phaser.Keyboard.D).isDown){
         pl.body.velocity.x = +speed
+        backg.tilePosition.x -= 0.5
         if (pl.body.touching.down === true){
         pl.animations.play('Running')
     }

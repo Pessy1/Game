@@ -238,8 +238,6 @@ function update() {
         start()
     }
 
-    backg.tilePosition.x -= 0.5
-
     playermovment()
     collide()
     deadly_void()
