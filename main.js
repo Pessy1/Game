@@ -1,8 +1,16 @@
 'use strict'
-const Game = new Phaser.Game(window.innerWidth,window.innerHeight, Phaser.AUTO, 'game-canvas', { 
-    preload:preload, 
+const Game = new Phaser.Game(1280,720, Phaser.AUTO, 'game-canvas', { 
     create:create, 
     update:update })
+    
+    Game.state.add ('boot',bootState)
+    Game.state.add ('load',loadState)
+    Game.state.add ('MainMenu',MainMenuState)
+    Game.state.add ('play',playSatate)
+    // Game.state.add ('win',winState)
+    // Game.state.add ('die',dieState)
+
+    Game.state.start('boot')
 
 let pl
 let title
@@ -75,48 +83,11 @@ let archers
 let hounds
 let fall = false
 let backg
+let button1
 
-
-
-function preload() {
-    Game.load.image("strelka", "Assets/strelka.png")
-    Game.load.image("game_over", "Assets/GameScreens/over.png")
-    Game.load.image("restart", "Assets/GameScreens/restart.png")
-    Game.load.image('title', 'Assets/GameScreens/title.png')
-    Game.load.image('zero_diamonds', 'Assets/GameScreens/zero_diamonds.png')
-    Game.load.spritesheet ('player','Assets/Player/Player_left_right.png',701/14.05,587/16.38)
-    Game.load.image('attack_left', 'Assets/Player/attack_left.png')
-    Game.load.image('attack_right', 'Assets/Player/attack_right.png')
-    Game.load.image('dash_right', 'Assets/Player/dash_right.png')
-    Game.load.image('dash_left', 'Assets/Player/dash_left.png')
-    Game.load.audio('music', "Assets/Sound effects/Cave Story OST Mimiga Town Extended Version.mp3")
-    Game.load.audio("jumpsound", "Assets/Sound effects/Jump.wav")
-    Game.load.audio("footstep", "Assets/Sound effects/Footstep1.wav")
-    Game.load.image("plat1", "Assets/Platforms/platform 1.png")
-    Game.load.image("plat2", "Assets/Platforms/platform 2.png")
-    Game.load.image("plat3", "Assets/Platforms/platform_3.png")
-    Game.load.image("plat4", "Assets/Platforms/platform 4.png")
-    Game.load.image("plat5", "Assets/Platforms/platform 5.png")
-    // Game.load.image ('platform','Assets/Platforms/download (1).png')
-    Game.load.spritesheet ('Archerer', 'Assets/Enemies/Archer/Archerer.png',680/4,680/4)
-    Game.load.spritesheet ('Hound', 'Assets/Enemies/Hount/hell-hound-run.png',335/5,32)
-    Game.load.image('healthbar', 'Assets/platform.jpg')
-    Game.load.spritesheet ('arrow','Assets/Enemies/Archer/Move.png',48/2,5)
-    Game.load.image('redflag', 'Assets/redflag.png')
-    Game.load.image("strelka", "Assets/strelka.png")
-    Game.load.image('bg','Assets/background.png')
-    Game.load.image("silver", "Assets/silver.png")
-}
 
 
 function create() {
-    backg=Game.add.tileSprite(0,0,5000,10000,'bg')
-    //backg.scale.setTo (window.Width,window.Height)
-    backg.fixedToCamera = true
-
-    let strelka = Game.add.sprite(5500, 3000, "strelka")
-    strelka.scale.setTo(0.1)
-
     win0 = Game.add.sprite(0,0,'zero_diamonds')
     win0.scale.setTo(0.2)
     win0.anchor.setTo(0.5)
@@ -137,39 +108,13 @@ function create() {
     win3.anchor.setTo(0.5)
     win3.kill()
 
-    musicandsound ()
-    playerf ()
-    plAnim ()
-    enemy_create()
-    enemy2_create()
-    enemy3_create()
-    enemy4_create()
-    enemy5_create()
-    enemy6_create()
-    enemy7_create()
-    enemy8_create()
-    enemy9_create()
-    enemy_phys()
-    enemy2_phys()
-    enemy3_phys()
-    enemy4_phys()
-    enemy5_phys()
-    enemy6_phys()
-    enemy7_phys()
-    enemy8_phys()
-    enemy9_phys()
-    enemy_2_create()
-    enemy_21_create()
-    enemy_22_create()
-    enemy_2_phys()
-    enemy_21_phys()
-    enemy_22_phys()
+    CreateFunctions ()
 
-    title = Game.add.sprite(0,0,'title')
-    title.scale.setTo(0.2)
-    title.anchor.setTo(0.5)
-    title.x = Game.camera.x + Game.camera.width/2
-    title.y = Game.camera.y+ Game.camera.height/2
+    // title = Game.add.sprite(0,0,'title')
+    // title.scale.setTo(0.2)
+    // title.anchor.setTo(0.5)
+    // title.x = Game.camera.x + Game.camera.width/2
+    // title.y = Game.camera.y+ Game.camera.height/2
 
     attacker = Game.add.sprite(pl.x-70, pl.y+20, 'attack_left')
     Game.physics.enable(attacker)
@@ -386,6 +331,36 @@ function collectSilver (pl, silver) {
     scoreText.revive()
     score += 1
     scoreText.text = "Collected Silver:  " + score
+}
+
+const CreateFunctions = function () {
+    musicandsound ()
+    playerf ()
+    plAnim ()
+    enemy_create()
+    enemy2_create()
+    enemy3_create()
+    enemy4_create()
+    enemy5_create()
+    enemy6_create()
+    enemy7_create()
+    enemy8_create()
+    enemy9_create()
+    enemy_phys()
+    enemy2_phys()
+    enemy3_phys()
+    enemy4_phys()
+    enemy5_phys()
+    enemy6_phys()
+    enemy7_phys()
+    enemy8_phys()
+    enemy9_phys()
+    enemy_2_create()
+    enemy_21_create()
+    enemy_22_create()
+    enemy_2_phys()
+    enemy_21_phys()
+    enemy_22_phys()
 }
 
 const musicandsound = function () {

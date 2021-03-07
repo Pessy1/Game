@@ -1,15 +1,4 @@
-const playerf = function () {
-    
-    pl=Game.add.sprite (4200, 2600-100,'player')
-    pl.anchor.setTo(0.5, 0)
-    pl.scale.setTo(3)
-    pl.health = 110
-    Game.physics.enable (pl)
-    pl.body.collideWorldBounds = true
-    pl.body.gravity.y = 750
-    pl.body.setSize (25,31, 15)
-    pl.kill()
-}
+
 const plAnim = function() {
     pl.animations.add('Idle',[7,8,9,10],4.8,true)
     pl.animations.add('Idle_left', [6,5,4,3],4.8,true)
