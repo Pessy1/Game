@@ -53,7 +53,9 @@ const playermovment = function (){
     
     if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown)
     {   
-        jumping = 1
+        if (pl.body.touching.down === true){
+            jumping = 1
+        }
         if (pl.body.touching.down === true && Game.time.now > jumpTimer && attack === 0){
             pl.body.velocity.y = -750
             jumpTimer = Game.time.now + 750
