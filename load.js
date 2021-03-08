@@ -1,8 +1,8 @@
 const loadState = {
     
     preload: function () {
+    Game.backg=Game.add.image(1,1,'MenuBg')
     Game.redy = false
-    Game.stage.backgroundColor ='#555555'
     Game.loading = Game.add.sprite (Game.width/2-40,Game.height/2,'Loading')
     Game.loading.anchor.setTo(0.5)
     Game.loadingBar=Game.add.sprite(Game.width/2,Game.height/2+170,'preloadBar')
@@ -43,6 +43,10 @@ const loadState = {
     Game.load.image("titleScreen", "Assets/MainMenuBackGround.png")
     Game.load.image('button','Assets/blue.png')
     Game.load.image('bg','Assets/background.png')
+    Game.load.image('playb','Assets/Buttons/PlayButton.png')
+    Game.load.image("button", "Assets/blue.png")
+    Game.load.image('optb','Assets/Buttons/OptionsButton.png')
+    Game.load.spritesheet ('mute','Assets/Buttons/MuteButton.png',310/2,35)
     },
 
     create: function() {

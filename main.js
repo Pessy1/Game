@@ -6,6 +6,7 @@ const Game = new Phaser.Game(1280,720, Phaser.AUTO, 'game-canvas', {
     Game.state.add ('boot',bootState)
     Game.state.add ('load',loadState)
     Game.state.add ('MainMenu',MainMenuState)
+    Game.state.add ('Options', optionsState)
     Game.state.add ('play',playSatate)
     // Game.state.add ('win',winState)
     // Game.state.add ('die',dieState)

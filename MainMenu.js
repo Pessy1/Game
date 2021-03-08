@@ -1,17 +1,21 @@
 const MainMenuState = {
-
-    preload: function (){
-        Game.load.image("button", "Assets/blue.png")
-    },
-
-
     create: function () {
-        Game.backg=Game.add.tileSprite(0,0,5000,10000,'MenuBg').scale.setTo (3.1,4)
-        Game.button = Game.add.button (Game.world.centerX,Game.world.centerY,'button',this.actionOnClick,Game)
+        Game.backg=Game.add.image(1,1,'MenuBg')
+        Game.title=Game.add.image (Game.world.centerX,Game.world.centerY-225,"title")
+        Game.title.anchor.setTo(0.5)
+        Game.title.scale.setTo(2)
+
+        Game.button = Game.add .button (Game.title.x,Game.world.centerY-75,'playb',this.actionOnClick,Game)
         Game.button.anchor.setTo(0.5)
+        Game.button2 = Game.add .button (Game.world.centerX,Game.world.centerY,'optb',this.actionOnClick2,Game)
+        Game.button2.anchor.setTo(0.5)
     },
 
     actionOnClick: function () {
         Game.state.start ('play')
+    },
+
+    actionOnClick2: function () {
+        Game.state.start ('Options')
     }
 }
