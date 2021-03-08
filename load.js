@@ -47,6 +47,7 @@ const loadState = {
     Game.load.image("button", "Assets/blue.png")
     Game.load.image('optb','Assets/Buttons/OptionsButton.png')
     Game.load.spritesheet ('mute','Assets/Buttons/MuteButton.png',310/2,35)
+    Game.load.image ('back','Assets/Buttons/BackButton.png')
     },
 
     create: function() {

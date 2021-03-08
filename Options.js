@@ -5,6 +5,7 @@ const optionsState = {
         Game.mute.anchor.setTo(0.5)
         Game.mute.animations.add ('mute',[0,1],100,false)
         Game.mute.animations.add ('mute2',[1,0],100,false)
+        Game.back=Game.add.button (1,1,'back',this.actionOnClick2)
       
     },
 
@@ -18,9 +19,7 @@ const optionsState = {
         }
     },
 
-    update: function () {
+    actionOnClick2: function () {
+        Game.state.start ('MainMenu')
     },
-
-    update: function () {
-    } 
 }
