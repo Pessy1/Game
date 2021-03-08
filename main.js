@@ -185,8 +185,6 @@ function create() {
     platform5 = Game.add.group()
     plat_placement()
 
-    Game.world.setBounds(0,0,10000,7000)
-
     text = Game.add.sprite(0, 0, 'game_over')
     text.kill()
 
@@ -369,8 +367,6 @@ function collectSilver (pl, silver) {
 
 const CreateFunctions = function () {
     musicandsound ()
-    playerf ()
-    plAnim ()
     enemy_create()
     enemy2_create()
     enemy3_create()
@@ -409,15 +405,6 @@ const death = function() {
     if (pl.health < 0){
         healthbar.kill()
         pl.kill()
-        text.x = Game.camera.x + Game.camera.width/2
-        text.y = Game.camera.y+ Game.camera.height/2
-        text.anchor.setTo(0.5)
-        text.revive()
-        text_restart.x = Game.camera.x + Game.camera.width/2
-        text_restart.y = Game.camera.y+ Game.camera.height/2 + 300
-        text_restart.scale.setTo(0.2)
-        text_restart.anchor.setTo(0.5)
-        text_restart.revive()
         if (Game.input.keyboard.addKey(Phaser.Keyboard.ENTER).isDown){
             restart()
         }
@@ -577,18 +564,11 @@ const restart = function() {
     pl.health = 110
     pl.x = 100
     pl.y = 5100
-    text.kill()
-    text_restart.kill()
-    win0.kill()
-    win1.kill()
-    win2.kill()
-    win3.kill()
     silvers.forEach(element => {
         if (element.visible === false){
             element.revive()
         }
     })
-    scoreText.kill()
     score = 0
     enemy_revive()
     enemy2_revive()
