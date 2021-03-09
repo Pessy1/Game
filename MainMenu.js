@@ -9,6 +9,8 @@ const MainMenuState = {
         Game.button.anchor.setTo(0.5)
         Game.button2 = Game.add .button (Game.world.centerX,Game.world.centerY,'optb',this.actionOnClick2,Game)
         Game.button2.anchor.setTo(0.5)
+        Game.button3=Game.add .button (Game.world.centerX,Game.world.centerY+75,'quit',this.actionOnClick3,Game)
+        Game.button3.anchor.setTo(0.5)
     },
 
     actionOnClick: function () {
@@ -17,5 +19,9 @@ const MainMenuState = {
 
     actionOnClick2: function () {
         Game.state.start ('Options')
+    },
+
+    actionOnClick3: function () {
+        window.close ()
     }
 }

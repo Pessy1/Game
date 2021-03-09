@@ -123,6 +123,7 @@ function preload() {
 
 
 function create() {
+
     win0 = Game.add.sprite(0,0,'zero_diamonds')
     win0.scale.setTo(0.2)
     win0.anchor.setTo(0.5)
