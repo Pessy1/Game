@@ -1,11 +1,11 @@
 const playSatate = function(Game) {
-   let backg
-   let attacker
-   let attacker1
-   let dash1
-   let dash2
-   let pauseb
-
+    let backg
+    let attacker
+    let attacker1
+    let dash1
+    let dash2
+    let pauseb
+    let optb
 }
 
 playSatate.prototype = {
@@ -17,7 +17,6 @@ playSatate.prototype = {
     CreateFunctions()
     this.button()
     this.PauseESC()
-    // this.PR()
 
     music = Game.add.audio('music', 0.05, true);
     music.play();
@@ -218,6 +217,9 @@ playSatate.prototype = {
             if (pauseb.scale.setTo(-10) && Game.paused == false) {
                 pauseb.scale.setTo(1.5)
             }
+            if (Game.paused==false){
+                optb.destroy ()
+            }
         }
     },
 
@@ -226,6 +228,12 @@ playSatate.prototype = {
         if (Game.paused == false) {
             Game.paused = true
             pauseb.scale.setTo(-10)
+            optb = Game.add.button (Game.camera.x+Game.camera.width/2, Game.camera.y+Game.camera.height/2,'optb',this.actionOnClick2,Game)
+            optb.anchor.setTo (0.5)
     }
+    },
+
+    actionOnClick2: function () {
+        Game.state.start ('Options')
     }
 }

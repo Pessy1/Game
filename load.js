@@ -46,6 +46,7 @@ const loadState = {
     Game.load.image ('back','Assets/Buttons/BackButton.png')
     Game.load.image ('quit','Assets/Buttons/QuitButton.png')
     Game.load.image ('pause','Assets/Buttons/PauseButton.png')
+    Game.load.image ('quit','Assets/Buttons/ResumeButton.png')
     },
 
     create: function() {
