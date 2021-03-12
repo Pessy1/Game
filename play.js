@@ -16,6 +16,8 @@ playSatate.prototype = {
     this.playerAtacks()
     CreateFunctions()
     this.button()
+    this.PauseESC()
+    // this.PR()
 
     music = Game.add.audio('music', 0.05, true);
     music.play();
@@ -193,6 +195,10 @@ playSatate.prototype = {
        }
     
        Game.physics.arcade.overlap(pl, silvers, collectSilver, null, this)
+
+        // if (Game.paused == false && Game.input.keyboard.addKey(Phaser.Keyboard.ESC).isDown) {
+        //     Game.paused = true
+    
        
     },
 
@@ -202,6 +208,24 @@ playSatate.prototype = {
     pauseb.scale.setTo (1.5)
     pauseb.fixedToCamera = true
     pauseb.inputEnable = true
-    }
+    },
 
+    PauseESC: function() {
+        window.onkeydown = function() {
+            if (Game.input.keyboard.addKey(Phaser.Keyboard.ESC).isDown){
+                Game.paused = !Game.paused;
+            }
+            if (pauseb.scale.setTo(-10) && Game.paused == false) {
+                pauseb.scale.setTo(1.5)
+            }
+        }
+    },
+
+
+    actionOnClick: function () {
+        if (Game.paused == false) {
+            Game.paused = true
+            pauseb.scale.setTo(-10)
+    }
+    }
 }
