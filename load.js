@@ -11,9 +11,6 @@ const loadState = {
     Game.loadingDots=Game.add.sprite(Game.width/2+420,Game.height/2+25,'dots')
     Game.loadingDots.animations.add ('loadingDots',[0,1,2,3],3,true)
     Game.loadingDots.animations.play ('loadingDots')
-
-
-
     Game.load.image("strelka", "Assets/strelka.png")
     Game.load.image("game_over", "Assets/GameScreens/over.png")
     Game.load.image("restart", "Assets/GameScreens/restart.png")
@@ -32,7 +29,6 @@ const loadState = {
     Game.load.image("plat3", "Assets/Platforms/platform_3.png")
     Game.load.image("plat4", "Assets/Platforms/platform 4.png")
     Game.load.image("plat5", "Assets/Platforms/platform 5.png")
-    // Game.load.image ('platform','Assets/Platforms/download (1).png')
     Game.load.spritesheet ('Archerer', 'Assets/Enemies/Archer/Archerer.png',680/4,680/4)
     Game.load.spritesheet ('Hound', 'Assets/Enemies/Hount/hell-hound-run.png',335/5,32)
     Game.load.image('healthbar', 'Assets/platform.jpg')
@@ -49,6 +45,7 @@ const loadState = {
     Game.load.spritesheet ('mute','Assets/Buttons/MuteButton.png',310/2,35)
     Game.load.image ('back','Assets/Buttons/BackButton.png')
     Game.load.image ('quit','Assets/Buttons/QuitButton.png')
+    Game.load.image ('pause','Assets/Buttons/PauseButton.png')
     },
 
     create: function() {

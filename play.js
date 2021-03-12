@@ -4,6 +4,7 @@ const playSatate = function(Game) {
    let attacker1
    let dash1
    let dash2
+   let pauseb
 
 }
 
@@ -13,8 +14,8 @@ playSatate.prototype = {
     this.strelka()
     this.playerf()
     this.playerAtacks()
-
     CreateFunctions()
+    this.button()
 
     music = Game.add.audio('music', 0.05, true);
     music.play();
@@ -57,12 +58,11 @@ playSatate.prototype = {
     platform5 = Game.add.group()
     plat_placement()
 
-    },
-
-    update:function () {
-
-    },
     
+    // Game.pauseb.anchor.setTo(1)
+    
+},
+
     backGround: function () {
     backg=Game.add.tileSprite(0,0,5000,10000,'bg')
     backg.fixedToCamera = true
@@ -193,6 +193,15 @@ playSatate.prototype = {
        }
     
        Game.physics.arcade.overlap(pl, silvers, collectSilver, null, this)
-    
+       
+    },
+
+    button: function () {
+    pauseb = Game.add.button (Game.camera.x+Game.camera.width, Game.camera.y,'pause',this.actionOnClick,Game)
+    pauseb.anchor.setTo(1,0)
+    pauseb.scale.setTo (1.5)
+    pauseb.fixedToCamera = true
+    pauseb.inputEnable = true
     }
+
 }

@@ -88,38 +88,7 @@ let button1
 
 
 
-function preload() {
-    Game.load.image("strelka", "Assets/strelka.png")
-    Game.load.image("game_over", "Assets/GameScreens/over.png")
-    Game.load.image("restart", "Assets/GameScreens/restart.png")
-    Game.load.image('title', 'Assets/GameScreens/title.png')
-    Game.load.image('zero_diamonds', 'Assets/GameScreens/zero_diamonds.png')
-    Game.load.image('1_diamond', 'Assets/GameScreens/1_diamond.png')
-    Game.load.image('2_diamonds', 'Assets/GameScreens/2_diamonds.png')
-    Game.load.image('3_diamonds', 'Assets/GameScreens/3_diamonds.png')
-    Game.load.spritesheet ('player','Assets/Player/Player_left_right.png',701/14.05,587/16.38)
-    Game.load.image('attack_left', 'Assets/Player/attack_left.png')
-    Game.load.image('attack_right', 'Assets/Player/attack_right.png')
-    Game.load.image('dash_right', 'Assets/Player/dash_right.png')
-    Game.load.image('dash_left', 'Assets/Player/dash_left.png')
-    Game.load.audio('music', "Assets/Sound effects/Cave Story OST Mimiga Town Extended Version.mp3")
-    Game.load.audio("jumpsound", "Assets/Sound effects/Jump.wav")
-    Game.load.audio("footstep", "Assets/Sound effects/Footstep1.wav")
-    Game.load.image("plat1", "Assets/Platforms/platform 1.png")
-    Game.load.image("plat2", "Assets/Platforms/platform 2.png")
-    Game.load.image("plat3", "Assets/Platforms/platform_3.png")
-    Game.load.image("plat4", "Assets/Platforms/platform 4.png")
-    Game.load.image("plat5", "Assets/Platforms/platform 5.png")
-    // Game.load.image ('platform','Assets/Platforms/download (1).png')
-    Game.load.spritesheet ('Archerer', 'Assets/Enemies/Archer/Archerer.png',680/4,680/4)
-    Game.load.spritesheet ('Hound', 'Assets/Enemies/Hount/hell-hound-run.png',335/5,32)
-    Game.load.image('healthbar', 'Assets/platform.jpg')
-    Game.load.spritesheet ('arrow','Assets/Enemies/Archer/Move.png',48/2,5)
-    Game.load.image('redflag', 'Assets/redflag.png')
-    Game.load.image("strelka", "Assets/strelka.png")
-    Game.load.image('bg','Assets/background.png')
-    Game.load.image("silver", "Assets/silver.png")
-}
+
 
 
 function create() {
