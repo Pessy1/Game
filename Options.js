@@ -6,6 +6,12 @@ const optionsState = {
         Game.mute.animations.add ('mute',[0,1],100,false)
         Game.mute.animations.add ('mute2',[1,0],100,false)
         Game.back=Game.add.button (1,1,'back',this.actionOnClick2)
+
+        Game.fullscreen = Game.add .button (Game.world.centerX,Game.world.centerY-75,'full',this.actionOnClick3,Game)
+        Game.fullscreen.animations.frame = 1
+        Game.fullscreen.anchor.setTo (0.5)
+
+        Game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT
       
     },
 
@@ -22,4 +28,14 @@ const optionsState = {
     actionOnClick2: function () {
         Game.state.start ('MainMenu')
     },
+
+    actionOnClick3: function () {
+        Game.fullscreen.animations.play ('offToOn')
+        Game.scale.startFullScreen(true)
+        Game.fullscreen.animations.frame = 0
+        if (Game.scale.isFullScreen){
+            Game.scale.stopFullScreen(true)
+            Game.fullscreen.animations.frame = 1
+        }
+    }
 }
