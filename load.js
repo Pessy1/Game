@@ -48,6 +48,7 @@ const loadState = {
     Game.load.image ('pause','Assets/Buttons/PauseButton.png')
     Game.load.image ('quit','Assets/Buttons/ResumeButton.png')
     Game.load.spritesheet('full','Assets/Buttons/FullscreenButton.png', 645/2, 34)
+    Game.load.image ('controls','Assets/Buttons/ControlsButton.png')
     },
 
     create: function() {

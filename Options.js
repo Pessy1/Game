@@ -11,6 +11,9 @@ const optionsState = {
         Game.fullscreen.animations.frame = 1
         Game.fullscreen.anchor.setTo (0.5)
 
+        Game.controls = Game.add.button (Game.world.centerX, Game.world.centerY+75,'controls',this.actionOnClick4,Game)
+        Game.controls.anchor.setTo (0.5)
+
         Game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT
       
     },
@@ -37,5 +40,9 @@ const optionsState = {
             Game.scale.stopFullScreen(true)
             Game.fullscreen.animations.frame = 1
         }
+    },
+
+    actionOnClick4: function () {
+        Game.state.start ('Controls')
     }
 }
