@@ -14,6 +14,7 @@ playSatate.prototype = {
     this.strelka()
     this.playerf()
     this.playerAtacks()
+    this.plAnim()
     CreateFunctions()
     this.button()
     this.PauseESC()
@@ -61,13 +62,19 @@ playSatate.prototype = {
 
     
     // Game.pauseb.anchor.setTo(1)
+
+    silvers = Game.add.group()
+    silvers.enableBody = true
+    silver_create(425, 2700)
+    silver_create(3025, 1900)
+    silver_create(6425, 2500)
     
 },
 
     backGround: function () {
     backg=Game.add.tileSprite(0,0,5000,10000,'bg')
     backg.fixedToCamera = true
-    backg.scale.setTo(1.5,2)
+    backg.scale.setTo(0.5,0.5)
     },
 
     strelka: function () {
@@ -94,6 +101,17 @@ playSatate.prototype = {
     pl.body.collideWorldBounds = true
     pl.body.gravity.y = 750
     pl.body.setSize (25,31, 15)
+    },
+
+    plAnim: function() {
+        pl.animations.add('Idle',[7,8,9,10],4.8,true)
+        pl.animations.add('Idle_left', [6,5,4,3],4.8,true)
+        pl.animations.add('Running',[22,23,24,25,26,27],6.5)
+        pl.animations.add('Running_left',[19,18,17,16,15,14],6.5)
+        pl.animations.add('Jump',[35,36,37,38,39,40,41,49,50],10,false)
+        pl.animations.add('Jump_left',[34,33,32,31,30,29,28,48,47],10)
+        pl.animations.add('Top',[51],10)
+        pl.animations.add('Top_left',[46],10)
     },
 
     update:function () {
