@@ -41,7 +41,7 @@ const loadState = {
     Game.load.image("titleScreen", "Assets/MainMenuBackGround.png")
     Game.load.image('button','Assets/blue.png')
     Game.load.image('bg','Assets/background.png')
-    Game.load.image('playb','Assets/Buttons/PlayButton.png')
+    Game.load.spritesheet('playb','Assets/Buttons/PlayButton.png',257/2,36)
     Game.load.image("button", "Assets/blue.png")
     Game.load.image('optb','Assets/Buttons/OptionsButton.png')
     Game.load.spritesheet ('mute','Assets/Buttons/MuteButton.png',310/2,35)
@@ -51,6 +51,10 @@ const loadState = {
     Game.load.image ('quit','Assets/Buttons/ResumeButton.png')
     Game.load.spritesheet('full','Assets/Buttons/FullscreenButton.png', 645/2, 34)
     Game.load.image ('controls','Assets/Buttons/ControlsButton.png')
+    Game.load.audio('button', "Assets/Sound effects/UIHoverAmongUsMenuButton-SoundEffectforediting.mp3")
+    Game.load.image ('hoverbg','Assets/HoverBg.png')
+    Game.load.image ('A&D&Space','Assets/Controls/A&D&Sapce.png')
+    Game.load.image ('mauce','Assets/mouse-left-click-icon-15056.png')
     },
 
     create: function() {

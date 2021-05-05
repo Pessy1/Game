@@ -263,6 +263,6 @@ playSatate.prototype = {
     
 
     actionOnClick2: function () {
-        Game.state.start ('Options')
+        
     }
 }
