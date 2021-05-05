@@ -5,11 +5,9 @@ const controlsState = {
         Game.back=Game.add.button (1,1,'back',this.actionOnClick,Game)
         
 
-        Game.AiD=Game.add.sprite (Game.width/2,Game.height/2-175,'A&D&Space')
+        Game.AiD=Game.add.sprite (Game.width/2,Game.height/2,'A&D&Space')
         Game.AiD.anchor.setTo (0.5)
-        Game.AiD.scale.setTo(0.2)
-
-        Game.mauce
+        Game.AiD.scale.setTo(0.4)
     },
 
     actionOnClick: function () {

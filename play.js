@@ -6,11 +6,17 @@ const playSatate = function(Game) {
     let dash2
     let pauseb
     let optb
+    let map
+    let ground
 }
 
 playSatate.prototype = {
     create:function () {
     this.backGround()
+    map = Game.add.tilemap('platforms')
+    map.addTilesetImage("platfrom_tileset", "level_1")
+    map.setCollisionByExclusion([])
+    ground = map.createLayer(0)
     this.strelka()
     this.playerf()
     this.playerAtacks()
@@ -93,13 +99,13 @@ playSatate.prototype = {
     },
     
     playerf: function () {
-    pl=Game.add.sprite (4200, 2600-100,'player')
+    pl=Game.add.sprite (0, 0,'player')
     pl.anchor.setTo(0.5, 0)
     pl.scale.setTo(3)
     pl.health = 110
     Game.physics.enable (pl)
     pl.body.collideWorldBounds = true
-    pl.body.gravity.y = 750
+    pl.body.gravity.y = 900
     pl.body.setSize (25,31, 15)
     },
 
@@ -115,6 +121,7 @@ playSatate.prototype = {
     },
 
     update:function () {
+        Game.physics.arcade.collide(pl, ground)
         playermovment()
         collide()
         deadly_void()
@@ -220,6 +227,10 @@ playSatate.prototype = {
     },
 
     button: function () {
+    optb = Game.add.button (Game.camera.x+Game.camera.width/2, Game.camera.y+Game.camera.height/2,'optb',this.actionOnClick2,Game)
+    optb.anchor.setTo (0.5)
+    optb.fixedToCamera = true
+    optb.kill()
     pauseb = Game.add.button (Game.camera.x+Game.camera.width, Game.camera.y,'pause',this.actionOnClick,Game)
     pauseb.anchor.setTo(1,0)
     pauseb.scale.setTo (1.5)
@@ -227,6 +238,14 @@ playSatate.prototype = {
     pauseb.inputEnable = true
     },
 
+    actionOnClick: function () {
+        if (Game.paused == false) {
+            Game.paused = true
+            pauseb.scale.setTo(-10)
+            optb.revive()
+    }
+},
+    
     PauseESC: function() {
         window.onkeydown = function() {
             if (Game.input.keyboard.addKey(Phaser.Keyboard.ESC).isDown){
@@ -236,20 +255,12 @@ playSatate.prototype = {
                 pauseb.scale.setTo(1.5)
             }
             if (Game.paused==false){
-                optb.destroy ()
+                optb.kill ()
             }
         }
     },
 
-
-    actionOnClick: function () {
-        if (Game.paused == false) {
-            Game.paused = true
-            pauseb.scale.setTo(-10)
-            optb = Game.add.button (Game.camera.x+Game.camera.width/2, Game.camera.y+Game.camera.height/2,'optb',this.actionOnClick2,Game)
-            optb.anchor.setTo (0.5)
-    }
-    },
+    
 
     actionOnClick2: function () {
         

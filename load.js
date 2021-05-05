@@ -11,6 +11,8 @@ const loadState = {
     Game.loadingDots=Game.add.sprite(Game.width/2+420,Game.height/2+25,'dots')
     Game.loadingDots.animations.add ('loadingDots',[0,1,2,3],3,true)
     Game.loadingDots.animations.play ('loadingDots')
+    Game.load.tilemap('platforms', 'Assets/Maps/map_1.json', null, Phaser.Tilemap.TILED_JSON)
+    Game.load.image('level_1', 'Assets/Maps/platfrom_tileset.png')
     Game.load.image("strelka", "Assets/strelka.png")
     Game.load.image("game_over", "Assets/GameScreens/over.png")
     Game.load.image("restart", "Assets/GameScreens/restart.png")

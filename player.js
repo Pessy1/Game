@@ -27,11 +27,12 @@ const playermovment = function (){
     let falg6 = Game.physics.arcade.collide(pl, plat_hound)
     let falg7 = Game.physics.arcade.collide(pl, plat_hound2)
     let falg8 = Game.physics.arcade.collide(pl, plat_hound3)
+    let flag9 = Game.physics.arcade.collide(pl, ground)
 
     if (Game.input.keyboard.addKey(Phaser.Keyboard.A).isDown){
         pl.body.velocity.x=-speed
         backg.tilePosition.x += 0.5
-        if (pl.body.touching.down === true){
+        if (pl.body.touching.down === true||flag9===true){
         pl.animations.play('Running_left')
         }
         direction = 'left'
