@@ -7,11 +7,11 @@ const Game = new Phaser.Game(1280,720, Phaser.AUTO, 'game-canvas', {
     Game.state.add ('load',loadState)
     Game.state.add ('MainMenu',MainMenuState)
     Game.state.add ('Controls',controlsState)
+    //Game.state.add ('winState', winState)
     Game.state.add ('Options', optionsState)
     Game.state.add ('play',playSatate)
-    Game.state.add ('win',winState)
-    Game.state.add ('die',dieState)
-
+    Game.state.add ('dieState', dieState)
+    
     Game.state.start('boot')
 
 let pl
@@ -367,9 +367,7 @@ const death = function() {
     if (pl.health < 0){
         healthbar.kill()
         pl.kill()
-        if (Game.input.keyboard.addKey(Phaser.Keyboard.ENTER).isDown){
-            restart()
-        }
+        Game.state.start ('dieState')
     }
     enemy_dying()
     enemy2_dying()
