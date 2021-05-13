@@ -9,6 +9,7 @@ const playSatate = function(Game) {
     let map
     let ground
     let ground_check = false
+    let flag
 }
 
 playSatate.prototype = {
@@ -27,6 +28,10 @@ playSatate.prototype = {
     CreateFunctions()
     this.button()
     this.PauseESC()
+    
+    flag = Game.add.image (7480,2515,'redflag')
+    flag.anchor.setTo (0.5)
+    flag.scale.setTo (0.25)
 
     music = Game.add.audio('music', 0.05, true);
     music.play();
@@ -114,7 +119,7 @@ playSatate.prototype = {
     },
     
     playerf: function () {
-    pl=Game.add.sprite (800, 2300,'player')
+    pl=Game.add.sprite (7421,2479,'player')
     pl.anchor.setTo(0.5, 0)
     pl.scale.setTo(3)
     pl.health = 110
@@ -175,6 +180,10 @@ playSatate.prototype = {
                 restart()
                 fall = false
             }
+        }
+
+        if (pl.overlap (flag)) {
+            Game.state.start ('level2')
         }
     
         //console.log(pl.x)
