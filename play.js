@@ -21,6 +21,15 @@ playSatate.prototype = {
     ground = map.createLayer(0)
     Game.physics.arcade.enable(ground)
     ground.body.immovable = true
+    enemies = Game.add.group()
+    enemies_right = Game.add.group()
+    enemy_create(500, 3400)
+    enemy_create(600, 3000)
+    enemy_create(2500, 2700)
+    enemy_create(3000, 3600)
+    enemy_create(4900, 3600)
+    enemy_create(6700, 3600)
+    enemy_right_create(6400, 2600)
     this.strelka()
     this.playerf()
     this.playerAtacks()
@@ -49,7 +58,6 @@ playSatate.prototype = {
     dash1 = Game.add.sprite(pl.x, pl.y, 'dash_right')
     dash1.scale.setTo(0)
 
-
     dash2 = Game.add.sprite(pl.x, pl.y, 'dash_left')
     dash2.scale.setTo(0)
 
@@ -59,8 +67,10 @@ playSatate.prototype = {
     healthbar.anchor.setTo(0.5, 1)
 
     arrows = Game.add.group()
+    arrows_right = Game.add.group()
     arrows.checkWorldBounds = true
     arrows.outOfBoundsKill = true
+<<<<<<< Updated upstream
     arrow2s = Game.add.group()
     arrow2s.checkWorldBounds = true
     arrow2s.outOfBoundsKill = true
@@ -84,6 +94,10 @@ playSatate.prototype = {
     arrow9s = Game.add.group()
     arrow9s.checkWorldBounds = true
     arrow9s.outOfBoundsKill = true
+=======
+    arrows_right.checkWorldBounds = true
+    arrows_right.outOfBoundsKill = true
+>>>>>>> Stashed changes
     platform5 = Game.add.group()
     plat_placement()
 
@@ -104,7 +118,7 @@ playSatate.prototype = {
     },
 
     strelka: function () {
-    let strelka = Game.add.sprite(5500, 3000, "strelka")
+    let strelka = Game.add.sprite(3000, 3000, "strelka")
     strelka.scale.setTo(0.1)
     },
 
@@ -176,10 +190,8 @@ playSatate.prototype = {
             Game.camera.follow(pl)
         }else if (fall === true){
             Game.camera.unfollow(pl)
-            if (Game.input.keyboard.addKey(Phaser.Keyboard.ENTER).isDown){
-                restart()
-                fall = false
-            }
+            Game.state.start ('dieState')
+
         }
 
         if (pl.overlap (flag)) {
@@ -203,37 +215,16 @@ playSatate.prototype = {
         healthbar.y = pl.y
     
         enemy_movment()
-        enemy2_movment()
-        enemy3_movment()
-        enemy4_movment()
-        enemy5_movment()
-        enemy6_movment()
-        enemy7_movment()
-        enemy8_movment()
-        enemy9_movment()
+        enemy_right_movement()
     
         if (shot_counter === 70){
             enemy_shot()
-            enemy2_shot()
-            enemy3_shot()
-            enemy4_shot()
-            enemy5_shot()
-            enemy6_shot()
-            enemy7_shot()
-            enemy8_shot()
-            enemy9_shot()
+            enemy_right_shot()
             shot_counter = 0
         }
     
         arrow_collision()
-        arrow2_collision()
-        arrow3_collision()
-        arrow4_collision()
-        arrow5_collision()
-        arrow6_collision()
-        arrow7_collision()
-        arrow8_collision()
-        arrow9_collision()
+        arrow_right_collision()
     
         if (Game.input.keyboard.addKey(Phaser.Keyboard.F).repeats){
             debug()

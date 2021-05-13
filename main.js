@@ -42,51 +42,23 @@ let dash = 0
 let dashing = 0
 let direction = 'right'
 let text
+let enemies
+let enemies_right
 let text_restart
 let healthbar
-let healthbar_enemy
-let healthbar_enemy2
-let healthbar_enemy3
-let healthbar_enemy4
-let healthbar_enemy5
-let healthbar_enemy6
-let healthbar_enemy7
-let healthbar_enemy8
-let healthbar_enemy9
 let healthbar_enemy_2
 let healthbar_enemy_21
 let healthbar_enemy_22
 let enemy
-let enemy2
-let enemy3
-let enemy4
-let enemy5
-let enemy6
-let enemy7
-let enemy8
-let enemy9
+let enemy_right
 let enemy_2
 let enemy_21
 let enemy_22
 let shot_counter = 0
 let arrows
-let arrow2s
-let arrow3s
-let arrow4s
-let arrow5s
-let arrow6s
-let arrow7s
-let arrow8s
-let arrow9s
+let arrows_right
 let arrow
-let arrow2
-let arrow3
-let arrow4
-let arrow5
-let arrow6
-let arrow7
-let arrow8
-let arrow9
+let arrow_right
 let archers
 let hounds
 let fall = false
@@ -148,14 +120,6 @@ function create() {
     healthbar.anchor.setTo(0.5, 1)
 
     arrows = Game.add.group()
-    arrow2s = Game.add.group()
-    arrow3s = Game.add.group()
-    arrow4s = Game.add.group()
-    arrow5s = Game.add.group()
-    arrow6s = Game.add.group()
-    arrow7s = Game.add.group()
-    arrow8s = Game.add.group()
-    arrow9s = Game.add.group()
     platform5 = Game.add.group()
     plat_placement()
 
@@ -244,37 +208,16 @@ function update() {
     healthbar.y = pl.y
 
     enemy_movment()
-    enemy2_movment()
-    enemy3_movment()
-    enemy4_movment()
-    enemy5_movment()
-    enemy6_movment()
-    enemy7_movment()
-    enemy8_movment()
-    enemy9_movment()
+    enemy_right_movement()
 
     if (shot_counter === 70){
         enemy_shot()
-        enemy2_shot()
-        enemy3_shot()
-        enemy4_shot()
-        enemy5_shot()
-        enemy6_shot()
-        enemy7_shot()
-        enemy8_shot()
-        enemy9_shot()
+        enemy_right_shot()
         shot_counter = 0
     }
 
     arrow_collision()
-    arrow2_collision()
-    arrow3_collision()
-    arrow4_collision()
-    arrow5_collision()
-    arrow6_collision()
-    arrow7_collision()
-    arrow8_collision()
-    arrow9_collision()
+    arrow_right_collision()
 
     if (Game.input.keyboard.addKey(Phaser.Keyboard.F).repeats){
         debug()
@@ -335,24 +278,8 @@ function collectSilver (pl, silver) {
 
 const CreateFunctions = function () {
     musicandsound ()
-    enemy_create()
-    enemy2_create()
-    enemy3_create()
-    enemy4_create()
-    enemy5_create()
-    enemy6_create()
-    enemy7_create()
-    enemy8_create()
-    enemy9_create()
     enemy_phys()
-    enemy2_phys()
-    enemy3_phys()
-    enemy4_phys()
-    enemy5_phys()
-    enemy6_phys()
-    enemy7_phys()
-    enemy8_phys()
-    enemy9_phys()
+    enemy_right_phys()
     enemy_2_create()
     enemy_21_create()
     enemy_22_create()
@@ -376,14 +303,7 @@ const death = function() {
         Game.state.start ('dieState')
     }
     enemy_dying()
-    enemy2_dying()
-    enemy3_dying()
-    enemy4_dying()
-    enemy5_dying()
-    enemy6_dying()
-    enemy7_dying()
-    enemy8_dying()
-    enemy9_dying()
+    enemy_right_dying()
     enemy_2_dying()
     enemy_21_dying()
     enemy_22_dying()
@@ -395,14 +315,7 @@ const damage = function() {
         attacker.scale.setTo(0)
         attacker1.scale.setTo(0)
         enemy_damage()
-        enemy2_damage()
-        enemy3_damage()
-        enemy4_damage()
-        enemy5_damage()
-        enemy6_damage()
-        enemy7_damage()
-        enemy8_damage()
-        enemy9_damage()
+        enemy_right_damage()
         enemy_2_damage()
         enemy_21_damage()
         enemy_22_damage()
@@ -421,14 +334,7 @@ const damage = function() {
             dash2.scale.setTo(0)
         }
         enemy_hit()
-        enemy2_hit()
-        enemy3_hit()
-        enemy4_hit()
-        enemy5_hit()
-        enemy6_hit()
-        enemy7_hit()
-        enemy8_hit()
-        enemy9_hit()
+        enemy_right_hit()
         enemy_2_hit()
         enemy_21_hit()
         enemy_22_hit()
@@ -438,14 +344,7 @@ const damage = function() {
 const collide = function() {
     
     enemy_collision()
-    enemy2_collision()
-    enemy3_collision()
-    enemy4_collision()
-    enemy5_collision()
-    enemy6_collision()
-    enemy7_collision()
-    enemy8_collision()
-    enemy9_collision()
+    enemy_right_collision()
     enemy_2_collision()
     enemy_21_collision()
     enemy_22_collision()
@@ -488,15 +387,6 @@ const restart = function() {
         }
     })
     score = 0
-    enemy_revive()
-    enemy2_revive()
-    enemy3_revive()
-    enemy4_revive()
-    enemy5_revive()
-    enemy6_revive()
-    enemy7_revive()
-    enemy8_revive()
-    enemy9_revive()
     enemy_2_revive()
     enemy_21_revive()
     enemy_22_revive()
