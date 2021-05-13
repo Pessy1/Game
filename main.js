@@ -10,9 +10,15 @@ const Game = new Phaser.Game(1280,720, Phaser.AUTO, 'game-canvas', {
     //Game.state.add ('winState', winState)
     Game.state.add ('Options', optionsState)
     Game.state.add ('play',playSatate)
+    Game.state.add ('level2',level2State)
+    Game.state.add ('level3',level3State)
     Game.state.add ('dieState', dieState)
+    // Game.state.add ('win',winState)
+    
     
     Game.state.start('boot')
+
+
 
 let pl
 let title

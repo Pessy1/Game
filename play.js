@@ -34,7 +34,7 @@ playSatate.prototype = {
     footstep = Game.add.audio('footstep',1)
     jumpsound = Game.add.audio('jumpsound',1)
 
-    Game.world.setBounds(0,0,10000,7000)
+    Game.world.setBounds(0,0,7500,7500)
     Game.camera.follow(pl)
 
     attacker = Game.add.sprite(pl.x-70, pl.y+20, 'attack_left')
@@ -69,7 +69,6 @@ playSatate.prototype = {
     arrow5s.checkWorldBounds = true
     arrow5s.outOfBoundsKill = true
     arrow6s = Game.add.group()
-    arrow6s.checkWorldBounds = true
     arrow6s.outOfBoundsKill = true
     arrow7s = Game.add.group()
     arrow7s.checkWorldBounds = true
@@ -251,22 +250,23 @@ playSatate.prototype = {
     },
 
     button: function () {
-    optb = Game.add.button (Game.camera.x+Game.camera.width/2, Game.camera.y+Game.camera.height/2,'optb',this.actionOnClick2,Game)
-    optb.anchor.setTo (0.5)
-    optb.fixedToCamera = true
-    optb.kill()
     pauseb = Game.add.button (Game.camera.x+Game.camera.width, Game.camera.y,'pause',this.actionOnClick,Game)
     pauseb.anchor.setTo(1,0)
     pauseb.scale.setTo (1.5)
     pauseb.fixedToCamera = true
     pauseb.inputEnable = true
+
+    optb = Game.add.button (Game.camera.x+Game.camera.width/2, Game.camera.y+Game.camera.height/2,'optb',this.actionOnClick2,Game)
+    optb.anchor.setTo (0.5)
+    optb.fixedToCamera = true
+    optb.kill ()
     },
 
     actionOnClick: function () {
         if (Game.paused == false) {
             Game.paused = true
             pauseb.scale.setTo(-10)
-            optb.revive()
+            optb.revive ()
     }
 },
     
@@ -288,6 +288,8 @@ playSatate.prototype = {
 
 
     actionOnClick2: function () {
-        
+        if (Game.paused) {
+            
+        }
     }
 }

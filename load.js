@@ -56,6 +56,7 @@ const loadState = {
     Game.load.image('redflag', 'Assets/redflag.png')
     Game.load.image("strelka", "Assets/strelka.png")
     Game.load.image("silver", "Assets/silver.png")
+    Game.load.image ('mainmenu','Assets/Buttons/Main Menu.png')
     },
 
     create: function() {
