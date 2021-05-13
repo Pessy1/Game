@@ -108,7 +108,7 @@ const playermovment = function (){
 }
 
 const deadly_void = function(){
-    if (pl.y > 6000){
+    if (pl.y > 4000){
         fall = true
     }
 }

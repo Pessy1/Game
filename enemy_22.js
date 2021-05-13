@@ -2,10 +2,6 @@ const enemy_22_create = function() {
     enemy_22 = Game.add.sprite(6900, 2800,'Hound')
     enemy_22.health = 70
     enemy_22.scale.setTo(1.7)
-    healthbar_enemy_22 = Game.add.sprite(0,0,'healthbar')
-    healthbar_enemy_22.width = enemy_22.health
-    healthbar_enemy_22.scale.setTo(0.05)
-    healthbar_enemy_22.anchor.setTo(0.5, 1)
 }
 
 const enemy_22_phys = function() {
@@ -18,10 +14,6 @@ const enemy_22_phys = function() {
 }
 
 const enemy_22_movement = function() {
-    healthbar_enemy_22.width = enemy_22.health
-
-    healthbar_enemy_22.x = enemy_22.x+enemy_22.width/2+6
-    healthbar_enemy_22.y = enemy_22.y-5
     if (enemy_22.x === plat_hound3.x){
         enemy_22.body.velocity.x = 300
         enemy_22.animations.add('right',[5,6,7,8,9],10,true).play()
@@ -33,7 +25,6 @@ const enemy_22_movement = function() {
 
 const enemy_22_dying = function() {
     if (enemy_22.health < 0){
-        healthbar_enemy_22.kill()
         enemy_22.kill()
     }
 }
@@ -70,7 +61,6 @@ const enemy_22_collision = function() {
 }
 
 const enemy_22_revive = function() {
-    healthbar_enemy_22.revive()
     enemy_22.revive()
     enemy_22.x = 7000
     enemy_22.y = 2800
