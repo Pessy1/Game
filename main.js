@@ -9,8 +9,8 @@ const Game = new Phaser.Game(1280,720, Phaser.AUTO, 'game-canvas', {
     Game.state.add ('Controls',controlsState)
     Game.state.add ('Options', optionsState)
     Game.state.add ('play',playSatate)
-    // Game.state.add ('win',winState)
-    // Game.state.add ('die',dieState)
+    Game.state.add ('win',winState)
+    Game.state.add ('die',dieState)
 
     Game.state.start('boot')
 
@@ -150,10 +150,6 @@ function create() {
     arrow7s = Game.add.group()
     arrow8s = Game.add.group()
     arrow9s = Game.add.group()
-    platform1 = Game.add.group()
-    platform2 = Game.add.group()
-    platform3 = Game.add.group()
-    platform4 = Game.add.group()
     platform5 = Game.add.group()
     plat_placement()
 
@@ -278,12 +274,6 @@ function update() {
         debug()
     }
     platform5.x += burzina
-
-    if(platform5.x > 1500){
-       burzina *= -1}
-
-    if (platform5.x < 0){
-   burzina = 5}
     
    if (pl.overlap(platform5)){
        pl.x += burzina
@@ -442,14 +432,7 @@ const damage = function() {
 }
 
 const collide = function() {
-    Game.physics.arcade.collide(pl, platform1)
-    Game.physics.arcade.collide(pl, platform2)
-    Game.physics.arcade.collide(pl, platform3)
-    Game.physics.arcade.collide(pl, platform4)
-    Game.physics.arcade.collide(pl, platform5)
-    Game.physics.arcade.collide(pl, plat_hound)
-    Game.physics.arcade.collide(pl, plat_hound2)
-    Game.physics.arcade.collide(pl, plat_hound3)
+    
     enemy_collision()
     enemy2_collision()
     enemy3_collision()
@@ -465,26 +448,16 @@ const collide = function() {
     Game.physics.arcade.collide(silvers, platform2)
 }
 const plat_placement = function(){
-    // 1
-    platform4_create(0, 5300)
-    platform4_create(550, 5100)
-    platform4_create(300, 4800)
-    platform4_create(0, 4500)
-    platform3_create(550, 4200)
-    platform3_create(650, 4000)
-    platform5_create(1000, 3700)
-    // 2
-    platform3_create(2300, 3400)
-    platform3_create(1800, 3150)
+    platform5_create(750, 3200)
 
-    plat_hound = Game.add.sprite(1000, 3000, "plat1")
+    plat_hound = Game.add.sprite(510, 2400, "plat1")
     plat_hound.scale.setTo(8)
     Game.physics.arcade.enable(plat_hound)
     plat_hound.body.allowGravity = false
     plat_hound.body.collideWorldBounds = true
     plat_hound.body.immovable = true
     
-    plat_hound2 = Game.add.sprite(3500, 2300, "plat1")
+    plat_hound2 = Game.add.sprite(5250, 2508, "plat1")
     plat_hound2.scale.setTo(8)
     Game.physics.arcade.enable(plat_hound2)
     plat_hound2.body.allowGravity = false
@@ -492,42 +465,11 @@ const plat_placement = function(){
     plat_hound2.body.immovable = true
 
     plat_hound3 = Game.add.sprite(6900, 2900, "plat1")
-    plat_hound3.scale.setTo(8)
+    plat_hound3.scale.setTo(0)
     Game.physics.arcade.enable(plat_hound3)
     plat_hound3.body.allowGravity = false
     plat_hound3.body.collideWorldBounds = true
     plat_hound3.body.immovable = true
-
-    platform2_create(400, 2800)
-    // 3
-    platform4_create(3400, 3700)
-    platform4_create(4200, 3500)
-    platform4_create(5000, 3300)
-    // 4
-    platform3_create(4300, 3100)
-    platform3_create(4900, 2800)
-    platform3_create(4200, 2600)
-    platform2_create(3000, 2000)
-    // 5
-    platform4_create(5900, 4700)
-    platform2_create(6600, 4700)
-    platform2_create(7000, 4700)
-    platform2_create(7600, 4700)
-    platform2_create(7850, 4700)
-    platform4_create(8200, 4700)
-    platform4_create(8800, 4400)
-    platform4_create(8100, 4100)
-    platform4_create(8700, 3750)
-    // 6
-    platform3_create(8100, 3500)
-    platform3_create(7600, 3200)
-    platform2_create(6400, 2600)
-    // 7
-    platform2_create(9500, 3700)
-    platform4_create(9550, 3500)
-    platform1_create(10000, 3200)
-
-
 }
 
 const restart = function() {

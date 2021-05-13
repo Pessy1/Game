@@ -1,5 +1,5 @@
 const enemy_21_create = function() {
-    enemy_21 = Game.add.sprite(3600, 2200,'Hound')
+    enemy_21 = Game.add.sprite(5500, 2400,'Hound')
     enemy_21.health = 70
     enemy_21.scale.setTo(1.7)
     healthbar_enemy_21 = Game.add.sprite(0,0,'healthbar')

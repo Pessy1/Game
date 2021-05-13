@@ -8,6 +8,7 @@ const playSatate = function(Game) {
     let optb
     let map
     let ground
+    let ground_check = false
 }
 
 playSatate.prototype = {
@@ -17,6 +18,8 @@ playSatate.prototype = {
     map.addTilesetImage("platfrom_tileset", "level_1")
     map.setCollisionByExclusion([])
     ground = map.createLayer(0)
+    Game.physics.arcade.enable(ground)
+    ground.body.immovable = true
     this.strelka()
     this.playerf()
     this.playerAtacks()
@@ -59,10 +62,6 @@ playSatate.prototype = {
     arrow7s = Game.add.group()
     arrow8s = Game.add.group()
     arrow9s = Game.add.group()
-    platform1 = Game.add.group()
-    platform2 = Game.add.group()
-    platform3 = Game.add.group()
-    platform4 = Game.add.group()
     platform5 = Game.add.group()
     plat_placement()
 
@@ -71,9 +70,8 @@ playSatate.prototype = {
 
     silvers = Game.add.group()
     silvers.enableBody = true
-    silver_create(425, 2700)
-    silver_create(3025, 1900)
-    silver_create(6425, 2500)
+    silver_create(5100, 2100)
+    silver_create(350, 2000)
     
 },
 
@@ -99,7 +97,7 @@ playSatate.prototype = {
     },
     
     playerf: function () {
-    pl=Game.add.sprite (0, 0,'player')
+    pl=Game.add.sprite (800, 2300,'player')
     pl.anchor.setTo(0.5, 0)
     pl.scale.setTo(3)
     pl.health = 110
@@ -121,7 +119,15 @@ playSatate.prototype = {
     },
 
     update:function () {
-        Game.physics.arcade.collide(pl, ground)
+        ground_check = false
+        Game.physics.arcade.collide(pl, ground, animate_player)
+        Game.physics.arcade.collide(pl, platform5, animate_player)
+        Game.physics.arcade.collide(pl, plat_hound, animate_player)
+        Game.physics.arcade.collide(pl, plat_hound2, animate_player)
+        Game.physics.arcade.collide(pl, plat_hound3, animate_player)
+        Game.physics.arcade.collide(silvers, ground)
+        console.log(pl.y)
+        console.log(pl.x)
         playermovment()
         collide()
         deadly_void()
@@ -208,7 +214,7 @@ playSatate.prototype = {
         }
         platform5.x += burzina
     
-        if(platform5.x > 1500){
+        if(platform5.x > 350){
            burzina *= -1}
     
         if (platform5.x < 0){
@@ -260,7 +266,8 @@ playSatate.prototype = {
         }
     },
 
-    
+
+
 
     actionOnClick2: function () {
         

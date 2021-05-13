@@ -12,7 +12,7 @@ const plAnim = function() {
 const playermovment = function (){
     pl.body.velocity.x=0
     if (pl.visible) {
-        pl.health -= 0.1
+        //pl.health -= 0.1
     }
 
     if (dashing !== 50){
@@ -27,7 +27,7 @@ const playermovment = function (){
     let falg6 = Game.physics.arcade.collide(pl, plat_hound)
     let falg7 = Game.physics.arcade.collide(pl, plat_hound2)
     let falg8 = Game.physics.arcade.collide(pl, plat_hound3)
-    let flag9 = Game.physics.arcade.collide(pl, ground)
+    let flag9 = Game.physics.arcade.collide(pl.body, ground.body)
 
     if (Game.input.keyboard.addKey(Phaser.Keyboard.A).isDown){
         pl.body.velocity.x=-speed
@@ -50,29 +50,6 @@ const playermovment = function (){
     }
     if ((!((Game.input.keyboard.addKey(Phaser.Keyboard.A).repeats % 30)) || !((Game.input.keyboard.addKey(Phaser.Keyboard.D).repeats % 30))) & Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isUp && pl.body.touching.down === true) {
         footstep.play()
-    }
-    
-    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown)
-    {   
-        if (pl.body.touching.down === true){
-            jumping = 1
-        }
-        if (pl.body.touching.down === true && Game.time.now > jumpTimer && attack === 0){
-            pl.body.velocity.y = -750
-            jumpTimer = Game.time.now + 750
-            jumpsound.play()
-            if(direction === 'right'){
-                pl.animations.play('Jump',10,false)
-            }else if (direction === 'left'){
-            pl.animations.play('Jump_left')} 
-        }
-    }else {jumping = 0}
-    if (pl.body.touching.down === false&&pl.body.velocity.y<-750){
-         if(direction === 'right'){
-            pl.animations.play('Top',10,false)
-        }else if (direction === 'left'){
-           pl.animations.play('Top_left')
-        }
     }
 
     if (dashing === 50){
@@ -106,9 +83,11 @@ const playermovment = function (){
             dash1.scale.setTo(0)
         }
     }else if (dasher === 0){
-        dash1.scale.setTo(0)
-        dash2.scale.setTo(0)
-        if(pl.body.touching.down === false&&jumping === 0){
+        if(ground_check === true){
+            dash1.scale.setTo(0)
+            dash2.scale.setTo(0)
+        }
+        if(ground_check === false&&jumping === 0&&dash1.scale.setTo(0)&&dash2.scale.setTo(0)){
             if (direction === 'right'){
                 pl.animations.play('Top')
             }
@@ -135,10 +114,40 @@ const deadly_void = function(){
 }
 
 const attack_player = function(){
-    if (pl.body.touching.down === true && pl.visible === true){
+    if ((pl.body.touching.down === true && pl.visible === true)||(ground_check === true && pl.visible === true)){
         if (Game.input.activePointer.leftButton.justPressed()){
             attack = 1
         }else {attack = 0}
     }
     console.log(attack)
+}
+
+const animate_player = function() {
+    if (Game.input.keyboard.addKey(Phaser.Keyboard.A).isDown){
+        pl.animations.play('Running_left')
+    }else if (Game.input.keyboard.addKey(Phaser.Keyboard.D).isDown){
+        pl.animations.play('Running')
+    }else if(direction === 'right'){
+        (pl.animations.play('Idle'))
+    }else if (direction === 'left'){
+        pl.animations.play('Idle_left')
+    }
+    if ((!((Game.input.keyboard.addKey(Phaser.Keyboard.A).repeats % 30)) || !((Game.input.keyboard.addKey(Phaser.Keyboard.D).repeats % 30))) & Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isUp) {
+        footstep.play()
+    }
+    
+    if (Game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown)
+    {  
+            jumping = 1
+        if (Game.time.now > jumpTimer && attack === 0){
+            pl.body.velocity.y = -750
+            jumpTimer = Game.time.now + 750
+            jumpsound.play()
+            if(direction === 'right'){
+                pl.animations.play('Jump',10,false)
+            }else if (direction === 'left'){
+                pl.animations.play('Jump_left')} 
+        }
+    }else {jumping = 0}
+    ground_check = true
 }
