@@ -70,34 +70,8 @@ playSatate.prototype = {
     arrows_right = Game.add.group()
     arrows.checkWorldBounds = true
     arrows.outOfBoundsKill = true
-<<<<<<< Updated upstream
-    arrow2s = Game.add.group()
-    arrow2s.checkWorldBounds = true
-    arrow2s.outOfBoundsKill = true
-    arrow3s = Game.add.group()
-    arrow3s.checkWorldBounds = true
-    arrow3s.outOfBoundsKill = true
-    arrow4s = Game.add.group()
-    arrow4s.checkWorldBounds = true
-    arrow4s.outOfBoundsKill = true
-    arrow5s = Game.add.group()
-    arrow5s.checkWorldBounds = true
-    arrow5s.outOfBoundsKill = true
-    arrow6s = Game.add.group()
-    arrow6s.outOfBoundsKill = true
-    arrow7s = Game.add.group()
-    arrow7s.checkWorldBounds = true
-    arrow7s.outOfBoundsKill = true
-    arrow8s = Game.add.group()
-    arrow8s.checkWorldBounds = true
-    arrow8s.outOfBoundsKill = true
-    arrow9s = Game.add.group()
-    arrow9s.checkWorldBounds = true
-    arrow9s.outOfBoundsKill = true
-=======
     arrows_right.checkWorldBounds = true
     arrows_right.outOfBoundsKill = true
->>>>>>> Stashed changes
     platform5 = Game.add.group()
     plat_placement()
 
@@ -194,9 +168,7 @@ playSatate.prototype = {
 
         }
 
-        if (pl.overlap (flag)) {
-            Game.state.start ('level2')
-        }
+        
     
         //console.log(pl.x)
     
@@ -246,7 +218,9 @@ playSatate.prototype = {
         // if (Game.paused == false && Game.input.keyboard.addKey(Phaser.Keyboard.ESC).isDown) {
         //     Game.paused = true
     
-       
+        if (pl.overlap (flag)) {
+            Game.state.start ('level2')
+        }
     },
 
     button: function () {
