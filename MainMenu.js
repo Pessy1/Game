@@ -15,11 +15,6 @@ const MainMenuState = {
         Game.hoverbg2.alpha = 0
         Game.hoverbg2.scale.setTo(0.7,0.9)
 
-        Game.hoverbg3 = Game.add.sprite (Game.world.centerX,Game.world.centerY+75,'hoverbg')
-        Game.hoverbg3.anchor.setTo (0.5)
-        Game.hoverbg3.alpha = 0
-        Game.hoverbg3.scale.setTo(0.45,0.9)
-
         Game.button = Game.add .button (Game.title.x,Game.world.centerY-75,'playb',this.actionOnClick,Game)
         Game.button.anchor.setTo(0.5)
         Game.button.animations.add ('hover',[0,1,0],6,false)
@@ -29,6 +24,7 @@ const MainMenuState = {
 
         Game.button3=Game.add .button (Game.world.centerX,Game.world.centerY+75,'quit',this.actionOnClick3,Game)
         Game.button3.anchor.setTo(0.5)
+        Game.button3.animations.add ('hover3',[0,1,2],6,false)
 
         Game.buttonSound = Game.add.audio ("button",0.5,)
 
@@ -57,12 +53,14 @@ const MainMenuState = {
         })
         Game.button3.events.onInputOver.add (function () {
             Game.buttonSound.play ()
-            Game.hoverbg3.alpha = 0.8
-            Game.button3.animations.play('hover')
+            Game.button3.animations.play('hover3')
+            if ( Game.button3.animations.play('hover3')==true){
+                Game.button3.frame = 2
+            }
         })
         Game.button3.events.onInputOut.add (function () {
             Game.buttonSound.stop ()
-            Game.hoverbg3.alpha = 0
+            Game.button3.frame = 0
         })
     },
 

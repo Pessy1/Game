@@ -1,3 +1,7 @@
-const level3State = {
+const level3State = function (Game) {
+
+}
+
+level3State.prototype = {
     
 }

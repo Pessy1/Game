@@ -1,3 +1,7 @@
-const level2State = {
+const level2State = function (Gmae) {
+
+}
+
+level2State.prototype = {
     
 }
