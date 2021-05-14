@@ -30,6 +30,7 @@ const loadState = {
     Game.load.image ('A&D&Space','Assets/Controls/A&D&Sapce.png')
     Game.load.image ('mauce','Assets/mouse-left-click-icon-15056.png')
     Game.load.tilemap('platforms', 'Assets/Maps/map_1.json', null, Phaser.Tilemap.TILED_JSON)
+    Game.load.tilemap('platforms_2', 'Assets/Maps/map_2.json', null, Phaser.Tilemap.TILED_JSON)
     Game.load.image('level_1', 'Assets/Maps/platfrom_tileset.png')
     Game.load.image("strelka", "Assets/strelka.png")
     Game.load.image("game_over", "Assets/GameScreens/over.png")

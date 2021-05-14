@@ -1,18 +1,6 @@
-const playSatate = function(Game) {
-    let backg
-    let attacker
-    let attacker1
-    let dash1
-    let dash2
-    let pauseb
-    let optb
-    let map
-    let ground
-    let ground_check = false
-    let flag
-}
+const playSatate = {
 
-playSatate.prototype = {
+
     create:function () {
     this.backGround()
     map = Game.add.tilemap('platforms')
@@ -41,9 +29,6 @@ playSatate.prototype = {
     flag = Game.add.image (7480,2515,'redflag')
     flag.anchor.setTo (0.5)
     flag.scale.setTo (0.25)
-
-    music = Game.add.audio('music', 0.05, true);
-    music.play();
 
     footstep = Game.add.audio('footstep',1)
     jumpsound = Game.add.audio('jumpsound',1)
@@ -74,6 +59,9 @@ playSatate.prototype = {
     arrows_right.outOfBoundsKill = true
     platform5 = Game.add.group()
     plat_placement()
+    scoreText = Game.add.text(Game.camera.x, Game.camera.y, "", {fontSize: "32px", fill:"#b19cd9"})
+    scoreText.fixedToCamera = true
+    scoreText.kill()
 
     
     // Game.pauseb.anchor.setTo(1)
@@ -107,7 +95,7 @@ playSatate.prototype = {
     },
     
     playerf: function () {
-    pl=Game.add.sprite (7421,2479,'player')
+    pl=Game.add.sprite (0,0,'player')
     pl.anchor.setTo(0.5, 0)
     pl.scale.setTo(3)
     pl.health = 110
@@ -164,6 +152,7 @@ playSatate.prototype = {
             Game.camera.follow(pl)
         }else if (fall === true){
             Game.camera.unfollow(pl)
+            music.pause()
             Game.state.start ('dieState')
 
         }
@@ -219,6 +208,7 @@ playSatate.prototype = {
         //     Game.paused = true
     
         if (pl.overlap (flag)) {
+            music.pause()
             Game.state.start ('level2')
         }
     },

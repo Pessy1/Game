@@ -64,6 +64,8 @@ let hounds
 let fall = false
 let backg
 let button1
+let level = 1
+
 
 
 
@@ -300,6 +302,7 @@ const death = function() {
     if (pl.health < 0){
         healthbar.kill()
         pl.kill()
+        music.pause()
         Game.state.start ('dieState')
     }
     enemy_dying()

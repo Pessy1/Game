@@ -12,7 +12,7 @@ const plAnim = function() {
 const playermovment = function (){
     pl.body.velocity.x=0
     if (pl.visible) {
-        //pl.health -= 0.1
+        pl.health -= 0.1
     }
 
     if (dashing !== 50){

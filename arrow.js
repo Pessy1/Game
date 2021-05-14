@@ -25,7 +25,7 @@ const arrow_right_collision = function() {
             element.outOfBoundsKill = true
             if (pl.visible && element.visible){
                 if (Phaser.Rectangle.intersects(pl.body, element.body)){
-                    pl.health -= 10
+                    pl.health -= 4
                     element.kill()
                 }
             }
@@ -61,7 +61,7 @@ const arrow_collision = function() {
             element.outOfBoundsKill = true
             if (pl.visible && element.visible){
                 if (Phaser.Rectangle.intersects(pl.body, element.body)){
-                    pl.health -= 10
+                    pl.health -= 4
                     element.kill()
                 }
             }
